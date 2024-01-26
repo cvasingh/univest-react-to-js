@@ -515,5 +515,5 @@ export function PieChartGraph({
 
 
 window.addEventListener('load', () => {
-    ReactDOM.render(<MainComponent />, document.getElementById('root'));
+        ReactDOM.render(<MainComponent />, document.getElementById('gcms-timelines'));
 });

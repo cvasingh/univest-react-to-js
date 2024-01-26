@@ -2,10 +2,10 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.js', // Path to your component
+    entry: './src/gcms.js',
     output: {
         path: path.resolve('dist'),
-        filename: 'ApplicationTracker.js',
+        filename: 'gcms.js',
         libraryTarget: 'umd',
         globalObject: 'this',
     },
