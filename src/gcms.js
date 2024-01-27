@@ -2,11 +2,7 @@
 import ReactDOM from 'react-dom';
 
 "use client"
-
-import React, { useEffect, useState,useId } from 'react'
-// ,,,c13e4a,c85d42,9251ab,7456b7
-
-import Select from 'react-select';
+import React, { useEffect, useId, useState } from 'react'
 import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import 'react-tooltip/dist/react-tooltip.css'
@@ -14,131 +10,76 @@ import './output.css';
 import { Tooltip } from 'react-tooltip'
 import { AiOutlineInfoCircle, AiOutlineShareAlt } from 'react-icons/ai';
 import axios from 'axios';
+import moment from 'moment';
 
-const theme = theme => ({
-    ...theme,
-    colors: {
-        ...theme.colors,
-        primary25: "#f3f3f3",
-        //   primary: "pink",
 
-        // All possible overrides
-        primary: '#2684FF',
-        // primary75: '#4C9AFF',
-        // primary50: '#B2D4FF',
-        // primary25: '#DEEBFF',
-
-        // danger: '#DE350B',
-        // dangerLight: '#FFBDAD',
-
-        // neutral0: 'hsl(0, 0%, 100%)',
-        // neutral5: 'hsl(0, 0%, 95%)',
-        // neutral10: 'hsl(0, 0%, 90%)',
-        // neutral20: 'hsl(0, 0%, 80%)',
-        // neutral30: 'hsl(0, 0%, 70%)',
-        // neutral40: 'hsl(0, 0%, 60%)',
-        // neutral50: 'hsl(0, 0%, 50%)',
-        // neutral60: 'hsl(0, 0%, 40%)',
-        // neutral70: 'hsl(0, 0%, 30%)',
-        // neutral80: 'hsl(0, 0%, 20%)',
-        // neutral90: 'hsl(0, 0%, 10%)',
-    },
-    // Other options you can use
-    borderRadius: 4,
-    baseUnit: 4,
-    controlHeight: 38,
-    // menuGutter: baseUnit * 2
-});
-export function MainComponent() {
+export default function MainComponent() {
+    const [date, setDate] = useState(moment().subtract(25, 'minute'))
     const [data, setData] = useState()
     const [select, setSelect] = useState({
-        monthToDate: { value: 0, label: 'Month to date' },
-        country: { value: "IN", label: "India" },
-        fileType: null,
-        applicationType: null
+        monthToDate: '',
+        country: 'IN',
+        fileType: '',
+        applicationType: ''
     });
 
     useEffect(() => {
-        axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country?.value}&fileType=null&monthToDate=null&applicationType=null&order_details=null`,
-        {headers:{ 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS`} })
+        axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=null&applicationType=null&order_details=null`,
+            { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
             .then(res => setData(res.data))
     }, [select])
 
     return (
-        <div className=''>
+        <div className='bg-'>
             <div className='flex items-center px-8 mt-10'>
                 <div className='hidden lg:flex  gap-4'>
-                    <Select
-                        id={useId()}
-                        isSearchable={true}
-                        theme={theme}
-                        name='monthToDate'
-                        options={[
+                    <select defaultValue={'Month To Date'}
+                        onChange={(e) => setSelect(pre => ({ ...pre, monthToDate: e.target.value }))}
+                        id="monthToDate" class="shadow px-4 py-1 text-base h-8 rounded-md bg-gray-50 border border-black border-opacity-20  w-[160px] text-gray-900 focus:ring-blue-500 focus:ring-[1px] focus:border focus:border-blue-500 block">
+                        <option selected disabled value='Month To Date'>Month To Date</option>
+                        {/* {[
                             // Last 7 days, Last 4 weeks, Last 3 months, Last 12 months, Month to date, Year to date, All time
                             { value: 0, label: 'Month to date' },
-                        ]}
-                        required={true}
-                        value={select?.monthToDate}
-                        onChange={(e) => setSelect(pre => ({ ...pre, monthToDate: e }))}
-                    />
-                    <Select
-                        id={useId()}
-                        isSearchable={true}
-                        theme={theme}
-                        name='country'
-                        className='w-[150px]'
-                        options={[
-                            { value: "IN", label: "India" },
-                            { value: "NG", label: "Nigeria" },
-                            { value: "PH", label: "Philippines" },
-                            { value: "PK", label: "Pakistan" },
-                            { value: "BD", label: "Bangladesh" },
-                            { value: "BG", label: "Bulgaria" },
-                            { value: "US", label: "United States" }
-                        ]}
-                        required={true}
-                        value={select?.country}
-                        onChange={(e) => setSelect(pre => ({ ...pre, country: e }))}
-                    />
-                    <Select
-                        id={useId()}
-                        isSearchable={true}
-                        theme={theme}
-                        name='fileType'
-                        options={[
+                        ]?.map(ele =>
+                            <option key={ele.value} value={ele.value}>{ele.label}</option>
+                        )} */}
+                    </select>
+                    <select defaultValue='IN'
+                        onChange={(e) => setSelect(pre => ({ ...pre, country: e.target.value }))}
+                        id="countries" class="shadow px-4 py-1 text-base h-8 rounded-md bg-gray-50 border border-black border-opacity-20  w-[160px] text-gray-900 focus:ring-blue-500 focus:ring-[1px] focus:border focus:border-blue-500 block">
+                        <option disabled>Choose a country</option>
+                        {[{ value: "IN", label: "India" },
+                        { value: "NG", label: "Nigeria" },
+                        { value: "PH", label: "Philippines" },
+                        { value: "PK", label: "Pakistan" },
+                        { value: "BD", label: "Bangladesh" },
+                        { value: "BG", label: "Bulgaria" },
+                        { value: "US", label: "United States" }
+                        ]?.map(ele =>
+                            <option key={ele.value} value={ele.value}>{ele.label}</option>
+                        )}
+                    </select>
+
+
+                    <select defaultValue='File Type'
+                        onChange={(e) => setSelect(pre => ({ ...pre, fileType: e.target.value }))}
+                        id="fileType" class="shadow px-4 py-1 text-base h-8 rounded-md bg-gray-50 border border-black border-opacity-20  w-[160px] text-gray-900 focus:ring-blue-500 focus:ring-[1px] focus:border focus:border-blue-500 block">
+                        <option selected disabled value='File Type'>File Type</option>
+                        {[
                             { value: "GCMS notes", label: 'GCMS notes' },
                             { value: "CBSA notes", label: 'CBSA notes' },
-                        ]}
-                        required={true}
-                        value={select?.fileType}
-                        onChange={(e) => setSelect(pre => ({ ...pre, fileType: e }))}
-                    />
-                    {/* <Select
-                    id={useId()}
-                    isSearchable={true}
-                    theme={theme}
-                    className='w-[180px] whitespace-nowrap'
-                    name='applicationType'
-                    options={[
-                        {"value":"Study Permit","label":"Study Permit"},
-                        {"value":"Visitor (Guest) Visa","label":"Visitor (Guest) Visa"},
-                        {"value":"Work Permit","label":"Work Permit"},
-                        {"value":"Permanent Residence","label":"Permanent Residence"},
-                        {"value":"Family Sponsorship","label":"Family Sponsorship"},
-                        {"value":null,"label":"N/A"}
-                    ]}
-                    required={true}
-                    value={select?.applicationType}
-                    onChange={(e) => setSelect(pre => ({ ...pre, applicationType: e }))}
-                /> */}
+                        ]?.map(ele =>
+                            <option key={ele.value} value={ele.value}>{ele.label}</option>
+                        )}
+                    </select>
                 </div>
 
                 <div className='flex flex-col lg:flex-row lg:items-center items-end gap-2 lg:gap-4 ml-auto'>
                     <div className="text-base font-medium text-[#13231A99]" >
-                        Last updated: 25 minuets ago <span className="text-[#1A21FF]" > Refresh data  </span>
+                        Last updated:  {moment(date).fromNow()} <span className="text-[#1A21FF]" onClick={() => setDate(moment())} > Refresh data  </span>
                     </div>
 
-                    <div className={`flex items-center border rounded-lg px-4 py-2 cursor-pointer bg-[#1A21FF] text-white`}
+                    <div className={`flex items-center border rounded-lg px-4 py-1.5 cursor-pointer bg-[#1A21FF] text-white`}
                         onClick={() => null}>
                         <span className="text-base font-medium " >
                             Share
@@ -220,7 +161,7 @@ export function MainComponent() {
                     lineColor='#ce7c3a' />
             </div>
 
-            <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
+            <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8 bg-white rounded-lg'>
                 <div className='bg-[#00000008] hidden lg:flex basis-1/5  flex-col gap-3 p-4 rounded-md'>
                     {[
                         { value: "IN", label: "India" },
@@ -249,16 +190,13 @@ export function MainComponent() {
 }
 
 
-
-
-
 export function LineGraph({
     title = '',
     desc = '',
     data = [],
     lineColor = '#202020' }) {
     return (
-        <div className='border rounded-lg p-4 w-full lg:basis-1/2'>
+        <div className='border rounded-lg p-4 w-full lg:basis-1/2 bg-white'>
             <div className={`flex items-center rounded-lg px-4 py-2 cursor-pointer text-[#000000CC]`}
                 onClick={() => null}>
                 <span className="text-base font-medium " >
@@ -285,15 +223,15 @@ export function LineGraph({
                     subtitle: {
                         text: null
                     },
-                    xAxis: {
-                        type: 'date',
-                        categories: [''],
-                        title: {
-                            text: null
-                        },
-                        labels: { enabled: false, y: 20, rotation: 0, align: 'right' },
-                        crosshair: false
-                    },
+                    // xAxis: {
+                    //     type: 'date',
+                    //     categories: [''],
+                    //     title: {
+                    //         text: null
+                    //     },
+                    //     labels: { enabled: false, y: 20, rotation: 0, align: 'right' },
+                    //     crosshair: false
+                    // },
                     yAxis: {
                         labels: {
                             enabled: false
@@ -354,7 +292,7 @@ export function MultiLineGraph({
     lineColor = '#202020' }) {
     return (
 
-        <div className='border rounded-lg p-4 w-full lg:basis-4/5'>
+        <div className='border rounded-lg p-4 w-full lg:basis-4/5 bg-white'>
             <div className={`flex items-center rounded-lg px-4 py-2 cursor-pointer text-[#000000CC]`}
                 onClick={() => null}>
                 <span className="text-base font-medium " >
@@ -462,7 +400,7 @@ export function PieChartGraph({
         }
     ] }) {
     return (
-        <div className='border rounded-lg p-4 basis-1/2'>
+        <div className='border rounded-lg p-4 basis-1/2 bg-white'>
             <div className={`flex items-center rounded-lg px-4 py-2 cursor-pointer text-[#000000CC]`}
                 onClick={() => null}>
                 <span className="text-base font-medium " >
@@ -515,5 +453,5 @@ export function PieChartGraph({
 
 
 window.addEventListener('load', () => {
-        ReactDOM.render(<MainComponent />, document.getElementById('gcms-timelines'));
+    ReactDOM.render(<MainComponent />, document.getElementById('gcms-timelines'));
 });
