@@ -18,14 +18,14 @@ export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
     const [data, setData] = useState()
     const [select, setSelect] = useState({
-        monthToDate: '',
+        date: 'Month To Date',
         country: 'IN',
         fileType: '',
         applicationType: ''
     });
 
     useEffect(() => {
-        axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=null&applicationType=null&order_details=null`,
+        axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date}&applicationType=null&order_details=null`,
             { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
             .then(res => setData(res.data))
     }, [select])
@@ -38,17 +38,22 @@ export default function MainComponent() {
                         onChange={(e) => setSelect(pre => ({ ...pre, monthToDate: e.target.value }))}
                         id="monthToDate " className='select-box'>
                         <option selected disabled value='Month To Date'>Month To Date</option>
-                        {/* {[
+                        {[
                             // Last 7 days, Last 4 weeks, Last 3 months, Last 12 months, Month to date, Year to date, All time
-                            { value: 0, label: 'Month to date' },
+                            { value: 'Month to date', label: 'Month to date' },
+                            { value: '', label: '' },
+                            { value: '', label: '' },
+                            { value: '', label: '' },
+                            { value: '', label: '' },
+                            { value: '', label: '' },
                         ]?.map(ele =>
                             <option key={ele.value} value={ele.value}>{ele.label}</option>
-                        )} */}
+                        )}
                     </select>
                     <select defaultValue='IN'
                         onChange={(e) => setSelect(pre => ({ ...pre, country: e.target.value }))}
                         id="countries " className='select-box'>
-                        <option disabled>Choose a country</option>
+                        <option disabled>World wide</option>
                         {[{ value: "IN", label: "India" },
                         { value: "NG", label: "Nigeria" },
                         { value: "PH", label: "Philippines" },
@@ -81,7 +86,7 @@ export default function MainComponent() {
                     </div>
 
                     <div className={`flex items-center border rounded-lg px-4 py-1.5 cursor-pointer bg-[#1A21FF] text-white`}
-                        onClick={() => null}>
+                    >
                         <span className="text-base font-medium " >
                             Share
                         </span>
@@ -162,30 +167,12 @@ export default function MainComponent() {
                     lineColor='#ce7c3a' />
             </div>
 
-            <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8 bg-white rounded-lg'>
-                <div className='bg-[#00000008] hidden lg:flex basis-1/5  flex-col gap-3 p-4 rounded-md'>
-                    {[
-                        { value: "IN", label: "India" },
-                        { value: "NG", label: "Nigeria" },
-                        { value: "PH", label: "Philippines" },
-                        { value: "PK", label: "Pakistan" },
-                        { value: "BD", label: "Bangladesh" },
-                        { value: "BG", label: "Bulgaria" },
-                        { value: "US", label: "United States" }
-                    ]?.map((ele, i) =>
-                        <div className="flex items-center" key={i}>
-                            <input onChange={(e) => console.log(e)}
-                                checked={false} id="checked-checkbox" type="checkbox" value={ele.value} className="w-4 h-4 text-black bg-gray-100 border-gray-300 rounded focus:ring-white dark:focus:ring-white" />
-                            <label htmlFor="checked-checkbox" className="ms-2 text-base font-medium text-black">{ele.label}</label>
-                        </div>)}
-                </div>
 
-                <MultiLineGraph
-                    desc='Average processing time for most applications during the selected period for specific countries.'
-                    title='By country'
-                    data={Object.entries(data?.["Study Permit"] ?? {})}
-                    lineColor='#5597AB' />
-            </div>
+            <MultiLineGraph
+                desc='Average processing time for most applications during the selected period for specific countries.'
+                title='By country'
+                data={Object.entries(data?.["Study Permit"] ?? {})}
+                lineColor='#5597AB' />
         </div>
     )
 }
@@ -198,9 +185,8 @@ export function LineGraph({
     lineColor = '#202020' }) {
     return (
         <div className='border rounded-lg p-4 w-full lg:basis-1/2 bg-white'>
-            <div className={`flex items-center rounded-lg px-4 py-2 cursor-pointer text-[#000000CC]`}
-                onClick={() => null}>
-                <span className="text-base font-medium " >
+            <div className={`flex items-center rounded-lg px-4 py-2 cursor-pointer text-[#000000CC]`}>
+                <span className="text-xl font-bold" >
                     {title}
                 </span>
                 <AiOutlineInfoCircle data-tooltip-id={title?.replaceAll(' ', '_')} className='ml-2' size={20} color={'#000000CC'} />
@@ -224,15 +210,19 @@ export function LineGraph({
                     subtitle: {
                         text: null
                     },
-                    // xAxis: {
-                    //     type: 'date',
-                    //     categories: [''],
-                    //     title: {
-                    //         text: null
-                    //     },
-                    //     labels: { enabled: false, y: 20, rotation: 0, align: 'right' },
-                    //     crosshair: false
-                    // },
+                    xAxis: {
+                        // type: 'date',
+                        // categories: [''],
+                        // title: {
+                        //     text: null
+                        // },
+                        labels: { enabled: true, style: { color: '#00000066', fontSize: '12px' } },
+                        crosshair: true,
+                        lineWidth: 2,
+                        tickWidth: 2,
+                        tickColor: '#00000033',
+                        lineColor: '#00000033'
+                    },
                     yAxis: {
                         labels: {
                             enabled: false
@@ -292,11 +282,9 @@ export function MultiLineGraph({
     data = [],
     lineColor = '#202020' }) {
     return (
-
-        <div className='border rounded-lg p-4 w-full lg:basis-4/5 bg-white'>
-            <div className={`flex items-center rounded-lg px-4 py-2 cursor-pointer text-[#000000CC]`}
-                onClick={() => null}>
-                <span className="text-base font-medium " >
+        <div className=' mx-4 my-8 lg:m-8'>
+            <div className={`flex items-center rounded-lg p-4 cursor-pointer text-[#000000CC]`}>
+                <span className="text-xl font-bold" >
                     {title}
                 </span>
                 <AiOutlineInfoCircle data-tooltip-id={title?.replaceAll(' ', '_')} className='ml-2' size={20} color={'#000000CC'} />
@@ -308,73 +296,100 @@ export function MultiLineGraph({
                     backgroundColor='#E69A8DFF'
                 />
             </div>
-            <HighchartsReact
-                highcharts={Highcharts}
-                options={{
-                    chart: {
-                        type: 'spline'
-                    },
-                    title: {
-                        text: null
-                    },
-                    subtitle: {
-                        text: null
-                    },
-                    xAxis: {
-                        categories: [''],
-                        title: {
-                            text: null
-                        },
-                        labels: { enabled: true, y: 20, rotation: 0, align: 'right' },
-                        crosshair: true
-                    },
-                    yAxis: {
-                        labels: {
-                            enabled: false
-                        },
-                        min: 0,
-                        gridLineWidth: 0,
-                        title: {
-                            text: '',
-                            align: 'high'
-                        }
-                    },
-                    // tooltip: {
-                    //     formatter: function () {
-                    //         return '';
-                    //     }
-                    // },
-                    plotOptions: {
-                        spline: {
-                            lineWidth: 3,
-                            states: {
-                                hover: {
-                                    lineWidth: 4
+
+            <div className='flex flex-col lg:flex-row gap-8 bg-white rounded-lg'>
+                <div className='bg-[#00000008] hidden lg:flex basis-1/5  flex-col gap-3 p-4 rounded-md'>
+                    {[
+                        { value: "IN", label: "India" },
+                        { value: "NG", label: "Nigeria" },
+                        { value: "PH", label: "Philippines" },
+                        { value: "PK", label: "Pakistan" },
+                        { value: "BD", label: "Bangladesh" },
+                        { value: "BG", label: "Bulgaria" },
+                        { value: "US", label: "United States" }
+                    ]?.map((ele, i) =>
+                        <div className="flex items-center" key={i}>
+                            <input onChange={(e) => console.log(e)}
+                                checked={false} id="checked-checkbox" type="checkbox" value={ele.value} className="w-4 h-4 text-black bg-gray-100 border-gray-300 rounded focus:ring-white dark:focus:ring-white" />
+                            <label htmlFor="checked-checkbox" className="ms-2 text-base font-medium text-black">{ele.label}</label>
+                        </div>)}
+                </div>
+                <div className='border rounded-lg p-4 w-full lg:basis-4/5 bg-white'>
+
+                    <HighchartsReact
+                        highcharts={Highcharts}
+                        options={{
+                            chart: {
+                                type: 'spline'
+                            },
+                            title: {
+                                text: null
+                            },
+                            subtitle: {
+                                text: null
+                            },
+                            xAxis: {
+                                // type: 'date',
+                                // categories: [''],
+                                // title: {
+                                //     text: null
+                                // },
+                                labels: { enabled: true, style: { color: '#00000066', fontSize: '12px' } },
+                                crosshair: true,
+                                lineWidth: 2,
+                                tickWidth: 2,
+                                tickColor: '#00000033',
+                                lineColor: '#00000033'
+                            },
+                            yAxis: {
+                                labels: {
+                                    enabled: false
+                                },
+                                min: 0,
+                                gridLineWidth: 0,
+                                title: {
+                                    text: '',
+                                    align: 'high'
                                 }
                             },
-                            marker: {
+                            // tooltip: {
+                            //     formatter: function () {
+                            //         return '';
+                            //     }
+                            // },
+                            plotOptions: {
+                                spline: {
+                                    lineWidth: 3,
+                                    states: {
+                                        hover: {
+                                            lineWidth: 4
+                                        }
+                                    },
+                                    marker: {
+                                        enabled: false
+                                    },
+                                    color: lineColor
+                                }
+                            },
+                            legend: {
                                 enabled: false
                             },
-                            color: lineColor
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    series: [
-                        {
-                            data
-                        },
-                        {
-                            data: data?.map(ele => ele - 1)
-                        },
-                    ]
-                }}
-                containerProps={{ style: { height: "298px" } }}
-            />
+                            credits: {
+                                enabled: false
+                            },
+                            series: [
+                                {
+                                    data
+                                },
+                                {
+                                    data: data?.map(ele => ele - 1)
+                                },
+                            ]
+                        }}
+                        containerProps={{ style: { height: "298px" } }}
+                    />
+                </div>
+            </div>
         </div>
     )
 }
@@ -402,9 +417,8 @@ export function PieChartGraph({
     ] }) {
     return (
         <div className='border rounded-lg p-4 basis-1/2 bg-white'>
-            <div className={`flex items-center rounded-lg px-4 py-2 cursor-pointer text-[#000000CC]`}
-                onClick={() => null}>
-                <span className="text-base font-medium " >
+            <div className={`flex items-center rounded-lg px-4 py-2 cursor-pointer text-[#000000CC]`}>
+                <span className="text-xl font-bold" >
                     {title}
                 </span>
                 <AiOutlineInfoCircle data-tooltip-id={title?.replaceAll(' ', '_')} className='ml-2' size={20} color={'#000000CC'} />
