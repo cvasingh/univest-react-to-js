@@ -7,6 +7,7 @@ import Highcharts from "highcharts/highstock";
 import HighchartsReact from "highcharts-react-official";
 import 'react-tooltip/dist/react-tooltip.css'
 import './output.css';
+import './input.css';
 import { Tooltip } from 'react-tooltip'
 import { AiOutlineInfoCircle, AiOutlineShareAlt } from 'react-icons/ai';
 import axios from 'axios';
@@ -35,7 +36,7 @@ export default function MainComponent() {
                 <div className='hidden lg:flex  gap-4'>
                     <select defaultValue={'Month To Date'}
                         onChange={(e) => setSelect(pre => ({ ...pre, monthToDate: e.target.value }))}
-                        id="monthToDate" class="shadow px-4 py-1 text-base h-8 rounded-md bg-gray-50 border border-black border-opacity-20  w-[160px] text-gray-900 focus:ring-blue-500 focus:ring-[1px] focus:border focus:border-blue-500 block">
+                        id="monthToDate select-box">
                         <option selected disabled value='Month To Date'>Month To Date</option>
                         {/* {[
                             // Last 7 days, Last 4 weeks, Last 3 months, Last 12 months, Month to date, Year to date, All time
@@ -46,7 +47,7 @@ export default function MainComponent() {
                     </select>
                     <select defaultValue='IN'
                         onChange={(e) => setSelect(pre => ({ ...pre, country: e.target.value }))}
-                        id="countries" class="shadow px-4 py-1 text-base h-8 rounded-md bg-gray-50 border border-black border-opacity-20  w-[160px] text-gray-900 focus:ring-blue-500 focus:ring-[1px] focus:border focus:border-blue-500 block">
+                        id="countries select-box">
                         <option disabled>Choose a country</option>
                         {[{ value: "IN", label: "India" },
                         { value: "NG", label: "Nigeria" },
@@ -63,7 +64,7 @@ export default function MainComponent() {
 
                     <select defaultValue='File Type'
                         onChange={(e) => setSelect(pre => ({ ...pre, fileType: e.target.value }))}
-                        id="fileType" class="shadow px-4 py-1 text-base h-8 rounded-md bg-gray-50 border border-black border-opacity-20  w-[160px] text-gray-900 focus:ring-blue-500 focus:ring-[1px] focus:border focus:border-blue-500 block">
+                        id="fileType select-box">
                         <option selected disabled value='File Type'>File Type</option>
                         {[
                             { value: "GCMS notes", label: 'GCMS notes' },
@@ -99,7 +100,7 @@ export default function MainComponent() {
                     <div className='text-lg lg:text-xl font-bold text-[#81724D]'>
                         Average processing time
                     </div>
-                    <div className='text-sm lg:text-lg text-center font-medium text-[#81724D] p-3 lg:p-5 rounded-lg border mx-0 lg:mx-20 mt-4'>
+                    <div className='frosted-glass text-sm lg:text-lg text-center font-medium text-[#81724D] p-3 lg:p-5 rounded-lg border mx-0 lg:mx-20 mt-4'>
                         Based on data from {data?.["Work Permit Total Avg"]} applications processed over a period of three month
                     </div>
                 </div>
@@ -125,22 +126,22 @@ export default function MainComponent() {
                         {
                             name: "Family Sponsorship Total Avg",
                             y: data?.["Family Sponsorship Total Avg"],
-                            color: "#565abf",
+                            color: "#204289",
                         },
                         {
                             name: "Permanent Residence Total Avg",
                             y: data?.["Permanent Residence Total Avg"],
-                            color: "#207bb7",
+                            color: "#465ba4",
                         },
                         {
                             name: "Study Permit Total Avg",
                             y: data?.["Study Permit Total Avg"],
-                            color: "#159671",
+                            color: "#ed6b11",
                         },
                         {
                             name: "Visitor (Guest) Visa Total Avg",
                             y: data?.["Visitor (Guest) Visa Total Avg"],
-                            color: "#ce7c3a"
+                            color: "#5596ac"
                         }
                     ]} />
             </div>
