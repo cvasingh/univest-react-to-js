@@ -18,7 +18,7 @@ export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
     const [data, setData] = useState()
     const [select, setSelect] = useState({
-        date: 'Month To Date',
+        date: 'All time',
         country: 'IN',
         fileType: '',
         applicationType: ''
@@ -39,13 +39,13 @@ export default function MainComponent() {
                         id="monthToDate " className='select-box'>
                         <option selected disabled value='Month To Date'>Month To Date</option>
                         {[
-                            // Last 7 days, Last 4 weeks, Last 3 months, Last 12 months, Month to date, Year to date, All time
+                            { value: 'All time', label: 'All time' },
+                            { value: 'Last 7 days', label: 'Last 7 days' },
+                            { value: 'Last 4 weeks', label: 'Last 4 weeks' },
+                            { value: 'Last 3 months', label: 'Last 3 months' },
+                            { value: 'Last 12 months', label: 'Last 12 months' },
                             { value: 'Month to date', label: 'Month to date' },
-                            { value: '', label: '' },
-                            { value: '', label: '' },
-                            { value: '', label: '' },
-                            { value: '', label: '' },
-                            { value: '', label: '' },
+                            { value: 'Year to date', label: 'Year to date' },
                         ]?.map(ele =>
                             <option key={ele.value} value={ele.value}>{ele.label}</option>
                         )}
