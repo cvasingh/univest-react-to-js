@@ -36,7 +36,7 @@ export default function MainComponent() {
                 <div className='hidden lg:flex  gap-4'>
                     <select defaultValue={'Month To Date'}
                         onChange={(e) => setSelect(pre => ({ ...pre, monthToDate: e.target.value }))}
-                        id="monthToDate select-box">
+                        id="monthToDate " className='select-box'>
                         <option selected disabled value='Month To Date'>Month To Date</option>
                         {/* {[
                             // Last 7 days, Last 4 weeks, Last 3 months, Last 12 months, Month to date, Year to date, All time
@@ -47,7 +47,7 @@ export default function MainComponent() {
                     </select>
                     <select defaultValue='IN'
                         onChange={(e) => setSelect(pre => ({ ...pre, country: e.target.value }))}
-                        id="countries select-box">
+                        id="countries " className='select-box'>
                         <option disabled>Choose a country</option>
                         {[{ value: "IN", label: "India" },
                         { value: "NG", label: "Nigeria" },
@@ -64,7 +64,7 @@ export default function MainComponent() {
 
                     <select defaultValue='File Type'
                         onChange={(e) => setSelect(pre => ({ ...pre, fileType: e.target.value }))}
-                        id="fileType select-box">
+                        id="fileType " className='select-box'>
                         <option selected disabled value='File Type'>File Type</option>
                         {[
                             { value: "GCMS notes", label: 'GCMS notes' },
