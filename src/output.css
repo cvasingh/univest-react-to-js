@@ -2056,8 +2056,8 @@ textarea {
 }
 
 .loader {
-  border: .3em solid #e5e7eb;
-  border-top-color: #aeaeae;
+  border: 1em solid #f5f6f8;
+  border-top-color: #2e8f58;
   border-radius: 50%;
   animation: 1s loader-05 linear infinite;
   position: relative;

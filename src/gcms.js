@@ -300,12 +300,23 @@ export function MultiLineGraph({
                 </span>
                 <AiOutlineInfoCircle data-tooltip-id={title?.replaceAll(' ', '_')} className='ml-2' size={20} color={'#000000CC'} />
                 <Tooltip
-                    openOnClick={true}
+                    style={{
+                        // width: '200px',
+                        // background: '#ffffff40',
+                        // color: '#000',
+                        // border: 'solid 1px #e5e7eb',
+                        // backdropFilter: 'blur(4px)',
+                        // maxWidth: '309px',
+                        // fontSize: '1.1rem',
+                        // borderRadius: '6px',
+                        // boxShadow: '0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px 0 rgba(0, 0, 0, 0.08)'
+                    }}
+
                     id={title?.replaceAll(' ', '_')}
                     place="top"
                     effect="float"
                     content={desc}
-                    backgroundColor='#E69A8DFF'
+                    backgroundColor='#ffffff40'
                 />
             </div>
 
