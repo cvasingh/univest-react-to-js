@@ -106,7 +106,7 @@ export default function MainComponent() {
                 </div>
             </div>
 
-            <hr className='my-3 mx-8 hidden lg:block' />
+            <hr className='hidden lg:block' style={{ margin: '1rem' }} />
 
             <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
                 <div className='w-full lg:basis-1/2 flex flex-col items-center justify-center'>
@@ -127,7 +127,7 @@ export default function MainComponent() {
                     lineColor='#565abf' />
             </div>
 
-            <hr className='my-3 mx-8 hidden lg:block' />
+            <hr className='hidden lg:block' style={{ margin: '1rem' }} />
 
             <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
                 <LineGraph
@@ -162,7 +162,7 @@ export default function MainComponent() {
                     ]} />
             </div>
 
-            <hr className='my-3 mx-8 hidden lg:block' />
+            <hr className='hidden lg:block' style={{ margin: '1rem' }} />
 
             <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
                 <LineGraph
