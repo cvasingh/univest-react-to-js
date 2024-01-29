@@ -852,6 +852,24 @@ video {
   margin-top: 3rem;
 }
 
+.rounded-tr-md {
+  border-top-right-radius: 0.375rem
+    /* 6px */
+  ;
+}
+
+.border-r {
+  border-right-width: 1px;
+}
+
+.border-r {
+  border-right-width: 1px;
+}
+
+.border-\[\#0000001a\] {
+  border-color: #0000001a;
+}
+
 .mt-2 {
   margin-top: 0.5rem;
 }

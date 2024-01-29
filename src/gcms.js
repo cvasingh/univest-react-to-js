@@ -208,7 +208,7 @@ export function LineGraph({
                         background: '#ffffff40',
                         color: '#000',
                         border: 'solid 1px #e5e7eb',
-                        backdropFilter: 'blur(4px)',
+                        backdropFilter: 'blur(6px)',
                         maxWidth: '309px',
                         fontSize: '1.1rem',
                         borderRadius: '6px',
@@ -316,7 +316,7 @@ export function MultiLineGraph({
                         background: '#ffffff40',
                         color: '#000',
                         border: 'solid 1px #e5e7eb',
-                        backdropFilter: 'blur(4px)',
+                        backdropFilter: 'blur(6px)',
                         maxWidth: '309px',
                         fontSize: '1.1rem',
                         borderRadius: '6px',
@@ -331,7 +331,7 @@ export function MultiLineGraph({
             </div>
 
             <div className='flex flex-col lg:flex-row gap-8 bg-white rounded-lg '>
-                <div className='bg-[#00000008] border border-[#0000001A] hidden lg:flex basis-1/5  flex-col gap-3 p-4'>
+                <div className='bg-[#00000008] border-t border-r rounded-tr-md border-[#0000001A] hidden lg:flex basis-1/5  flex-col gap-3 p-4'>
                     {[
                         { value: "IN", label: "India" },
                         { value: "NG", label: "Nigeria" },
@@ -343,7 +343,7 @@ export function MultiLineGraph({
                     ]?.map((ele, i) =>
                         <div className="flex items-center" key={i}>
                             <input onChange={(e) => console.log(e)}
-                                checked={false} id="checked-checkbox" type="checkbox" value={ele.value} className="w-4 h-4 text-black bg-gray-100 border-gray-300 rounded focus:ring-white dark:focus:ring-white" />
+                                checked={false} id="checked-checkbox" type="checkbox" value={ele.value} className="w-4 h-4 text-black bg-gray-100 border border-[#0000001a] rounded focus:ring-white dark:focus:ring-white" />
                             <label htmlFor="checked-checkbox" className="ms-2 text-base font-medium text-black">{ele.label}</label>
                         </div>)}
                 </div>
@@ -462,7 +462,7 @@ export function PieChartGraph({
                         background: '#ffffff40',
                         color: '#000',
                         border: 'solid 1px #e5e7eb',
-                        backdropFilter: 'blur(4px)',
+                        backdropFilter: 'blur(6px)',
                         maxWidth: '309px',
                         fontSize: '1.1rem',
                         borderRadius: '6px',
