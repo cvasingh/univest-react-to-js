@@ -34,7 +34,7 @@ export default function MainComponent() {
             })
     }, [select])
 
-    if (loading) return <div className='h-full w-full flex justify-center pt-20'><div className='loader h-10 w-10' /></div>
+    if (loading) return <div className='h-screen w-full flex justify-center pt-20'><div className='loader h-10 w-10' /></div>
     return (
         <div className='bg-'>
             <div className='flex items-center px-8 mt-10'>
@@ -203,6 +203,17 @@ export function LineGraph({
                 <AiOutlineInfoCircle data-tooltip-id={title?.replaceAll(' ', '_')} className='ml-2' size={20} color={'#000000CC'} />
                 <Tooltip
                     id={title?.replaceAll(' ', '_')}
+                    style={{
+                        width: '200px',
+                        background: '#ffffff40',
+                        color: '#000',
+                        border: 'solid 1px #e5e7eb',
+                        backdropFilter: 'blur(4px)',
+                        maxWidth: '309px',
+                        fontSize: '1.1rem',
+                        borderRadius: '6px',
+                        boxShadow: '0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px 0 rgba(0, 0, 0, 0.08)'
+                    }}
                     place="top"
                     effect="float"
                     content={desc}
@@ -301,17 +312,16 @@ export function MultiLineGraph({
                 <AiOutlineInfoCircle data-tooltip-id={title?.replaceAll(' ', '_')} className='ml-2' size={20} color={'#000000CC'} />
                 <Tooltip
                     style={{
-                        // width: '200px',
-                        // background: '#ffffff40',
-                        // color: '#000',
-                        // border: 'solid 1px #e5e7eb',
-                        // backdropFilter: 'blur(4px)',
-                        // maxWidth: '309px',
-                        // fontSize: '1.1rem',
-                        // borderRadius: '6px',
-                        // boxShadow: '0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px 0 rgba(0, 0, 0, 0.08)'
+                        width: '200px',
+                        background: '#ffffff40',
+                        color: '#000',
+                        border: 'solid 1px #e5e7eb',
+                        backdropFilter: 'blur(4px)',
+                        maxWidth: '309px',
+                        fontSize: '1.1rem',
+                        borderRadius: '6px',
+                        boxShadow: '0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px 0 rgba(0, 0, 0, 0.08)'
                     }}
-
                     id={title?.replaceAll(' ', '_')}
                     place="top"
                     effect="float"
@@ -320,8 +330,8 @@ export function MultiLineGraph({
                 />
             </div>
 
-            <div className='flex flex-col lg:flex-row gap-8 bg-white rounded-lg'>
-                <div className='bg-[#00000008] hidden lg:flex basis-1/5  flex-col gap-3 p-4'>
+            <div className='flex flex-col lg:flex-row gap-8 bg-white rounded-lg '>
+                <div className='bg-[#00000008] border border-[#0000001A] hidden lg:flex basis-1/5  flex-col gap-3 p-4'>
                     {[
                         { value: "IN", label: "India" },
                         { value: "NG", label: "Nigeria" },
@@ -447,6 +457,17 @@ export function PieChartGraph({
                 <Tooltip
                     id={title?.replaceAll(' ', '_')}
                     place="top"
+                    style={{
+                        width: '200px',
+                        background: '#ffffff40',
+                        color: '#000',
+                        border: 'solid 1px #e5e7eb',
+                        backdropFilter: 'blur(4px)',
+                        maxWidth: '309px',
+                        fontSize: '1.1rem',
+                        borderRadius: '6px',
+                        boxShadow: '0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px 0 rgba(0, 0, 0, 0.08)'
+                    }}
                     effect="float"
                     content={desc}
                     backgroundColor='#E69A8DFF'
