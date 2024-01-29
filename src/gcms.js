@@ -17,6 +17,7 @@ import moment from 'moment';
 export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
     const [data, setData] = useState()
+    const [loading, setLoading] = useState(true)
     const [select, setSelect] = useState({
         date: 'All time',
         country: 'IN',
@@ -27,9 +28,13 @@ export default function MainComponent() {
     useEffect(() => {
         axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date}&applicationType=null&order_details=null`,
             { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
-            .then(res => setData(res.data))
+            .then(res => {
+                setData(res.data)
+                setTimeout(() => setLoading(false), 500)
+            })
     }, [select])
 
+    if (loading) return <div className='h-full w-full flex justify-center pt-20'><div className='loader h-10 w-10' /></div>
     return (
         <div className='bg-'>
             <div className='flex items-center px-8 mt-10'>
@@ -53,14 +58,16 @@ export default function MainComponent() {
                     <select defaultValue='IN'
                         onChange={(e) => setSelect(pre => ({ ...pre, country: e.target.value }))}
                         id="countries " className='select-box'>
-                        <option disabled>World wide</option>
-                        {[{ value: "IN", label: "India" },
-                        { value: "NG", label: "Nigeria" },
-                        { value: "PH", label: "Philippines" },
-                        { value: "PK", label: "Pakistan" },
-                        { value: "BD", label: "Bangladesh" },
-                        { value: "BG", label: "Bulgaria" },
-                        { value: "US", label: "United States" }
+                        <option disabled></option>
+                        {[
+                            { value: null, label: "Worldwide" },
+                            { value: "IN", label: "India" },
+                            { value: "NG", label: "Nigeria" },
+                            { value: "PH", label: "Philippines" },
+                            { value: "PK", label: "Pakistan" },
+                            { value: "BD", label: "Bangladesh" },
+                            { value: "BG", label: "Bulgaria" },
+                            { value: "US", label: "United States" }
                         ]?.map(ele =>
                             <option key={ele.value} value={ele.value}>{ele.label}</option>
                         )}
@@ -82,7 +89,12 @@ export default function MainComponent() {
 
                 <div className='flex flex-col lg:flex-row lg:items-center items-end gap-2 lg:gap-4 ml-auto'>
                     <div className="text-base font-medium text-[#13231A99]" >
-                        Last updated:  {moment(date).fromNow()} <span className="text-[#1A21FF]" onClick={() => setDate(moment())} > Refresh data  </span>
+                        Last updated:  {moment(date).fromNow()} <span className="text-[#1A21FF]"
+                            onClick={() => {
+                                setDate(moment())
+                                setLoading(true)
+                                setTimeout(() => setLoading(false), 500)
+                            }} > Refresh data  </span>
                     </div>
 
                     <div className={`flex items-center border rounded-lg px-4 py-1.5 cursor-pointer bg-[#1A21FF] text-white`}
@@ -106,7 +118,7 @@ export default function MainComponent() {
                         Average processing time
                     </div>
                     <div className='frosted-glass text-sm lg:text-lg text-center font-medium text-[#81724D] p-3 lg:p-5 rounded-lg border mx-0 lg:mx-20 mt-4'>
-                        Based on data from {data?.["Work Permit Total Avg"]} applications processed over a period of three month
+                        Based on data from 4,561 applications processed over a period of three month
                     </div>
                 </div>
                 <LineGraph
@@ -282,7 +294,7 @@ export function MultiLineGraph({
     data = [],
     lineColor = '#202020' }) {
     return (
-        <div className=' mx-4 my-8 lg:m-8'>
+        <div className=' mx-4 my-8 lg:m-8 border rounded-lg '>
             <div className={`flex items-center rounded-lg p-4 cursor-pointer text-[#000000CC]`}>
                 <span className="text-xl font-bold" >
                     {title}
@@ -298,7 +310,7 @@ export function MultiLineGraph({
             </div>
 
             <div className='flex flex-col lg:flex-row gap-8 bg-white rounded-lg'>
-                <div className='bg-[#00000008] hidden lg:flex basis-1/5  flex-col gap-3 p-4 rounded-md'>
+                <div className='bg-[#00000008] hidden lg:flex basis-1/5  flex-col gap-3 p-4'>
                     {[
                         { value: "IN", label: "India" },
                         { value: "NG", label: "Nigeria" },
@@ -314,8 +326,7 @@ export function MultiLineGraph({
                             <label htmlFor="checked-checkbox" className="ms-2 text-base font-medium text-black">{ele.label}</label>
                         </div>)}
                 </div>
-                <div className='border rounded-lg p-4 w-full lg:basis-4/5 bg-white'>
-
+                <div className='p-4 w-full lg:basis-4/5 bg-white'>
                     <HighchartsReact
                         highcharts={Highcharts}
                         options={{
