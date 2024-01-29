@@ -58,7 +58,6 @@ export default function MainComponent() {
                     <select defaultValue='IN'
                         onChange={(e) => setSelect(pre => ({ ...pre, country: e.target.value }))}
                         id="countries " className='select-box'>
-                        <option disabled></option>
                         {[
                             { value: null, label: "Worldwide" },
                             { value: "IN", label: "India" },
@@ -301,6 +300,7 @@ export function MultiLineGraph({
                 </span>
                 <AiOutlineInfoCircle data-tooltip-id={title?.replaceAll(' ', '_')} className='ml-2' size={20} color={'#000000CC'} />
                 <Tooltip
+                    openOnClick={true}
                     id={title?.replaceAll(' ', '_')}
                     place="top"
                     effect="float"
