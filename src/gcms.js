@@ -19,14 +19,14 @@ export default function MainComponent() {
     const [data, setData] = useState()
     const [loading, setLoading] = useState(true)
     const [select, setSelect] = useState({
-        date: 'All time',
+        date: 'Last 4 weeks',
         country: 'IN',
         fileType: '',
         applicationType: ''
     });
 
     useEffect(() => {
-        axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date}&applicationType=null&order_details=null`,
+        axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date?.replaceAll(' ', '_')}&applicationType=null&order_details=null`,
             { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
             .then(res => {
                 setData(res.data)
@@ -42,7 +42,6 @@ export default function MainComponent() {
                     <select defaultValue={'Month To Date'}
                         onChange={(e) => setSelect(pre => ({ ...pre, monthToDate: e.target.value }))}
                         id="monthToDate " className='select-box'>
-                        <option selected disabled value='Month To Date'>Month To Date</option>
                         {[
                             { value: 'All time', label: 'All time' },
                             { value: 'Last 7 days', label: 'Last 7 days' },
@@ -59,7 +58,7 @@ export default function MainComponent() {
                         onChange={(e) => setSelect(pre => ({ ...pre, country: e.target.value }))}
                         id="countries " className='select-box'>
                         {[
-                            { value: null, label: "Worldwide" },
+                            { value: '', label: "Worldwide" },
                             { value: "IN", label: "India" },
                             { value: "NG", label: "Nigeria" },
                             { value: "PH", label: "Philippines" },
@@ -76,7 +75,7 @@ export default function MainComponent() {
                     <select defaultValue='File Type'
                         onChange={(e) => setSelect(pre => ({ ...pre, fileType: e.target.value }))}
                         id="fileType " className='select-box'>
-                        <option selected disabled value='File Type'>File Type</option>
+                        <option selected disabled value='File type'>File type</option>
                         {[
                             { value: "GCMS notes", label: 'GCMS notes' },
                             { value: "CBSA notes", label: 'CBSA notes' },
@@ -117,7 +116,7 @@ export default function MainComponent() {
                         Average processing time
                     </div>
                     <div className='frosted-glass text-sm lg:text-lg text-center font-medium text-[#81724D] p-3 lg:p-5 rounded-lg border mx-0 lg:mx-20 mt-4'>
-                        Based on data from 4,561 applications processed over a period of three month
+                        Based on data from 4,561 applications processed over the selected period
                     </div>
                 </div>
                 <LineGraph
@@ -208,7 +207,7 @@ export function LineGraph({
                         background: '#ffffff40',
                         color: '#000',
                         border: 'solid 1px #e5e7eb',
-                        backdropFilter: 'blur(6px)',
+                        backdropFilter: 'blur(8px)',
                         maxWidth: '309px',
                         fontSize: '1.1rem',
                         borderRadius: '6px',
@@ -303,6 +302,7 @@ export function MultiLineGraph({
     desc = '',
     data = [],
     lineColor = '#202020' }) {
+    const [selected, setSelected] = useState(['IN'])
     return (
         <div className=' mx-4 my-8 lg:m-8 border rounded-lg '>
             <div className={`flex items-center rounded-lg p-4 cursor-pointer text-[#000000CC]`}>
@@ -316,7 +316,7 @@ export function MultiLineGraph({
                         background: '#ffffff40',
                         color: '#000',
                         border: 'solid 1px #e5e7eb',
-                        backdropFilter: 'blur(6px)',
+                        backdropFilter: 'blur(8px)',
                         maxWidth: '309px',
                         fontSize: '1.1rem',
                         borderRadius: '6px',
@@ -342,8 +342,17 @@ export function MultiLineGraph({
                         { value: "US", label: "United States" }
                     ]?.map((ele, i) =>
                         <div className="flex items-center" key={i}>
-                            <input onChange={(e) => console.log(e)}
-                                checked={false} id="checked-checkbox" type="checkbox" value={ele.value} className="w-4 h-4 text-black bg-gray-100 border border-[#0000001a] rounded focus:ring-white dark:focus:ring-white" />
+                            <input onChange={() => {
+                                setSelected(pre => {
+                                    const index = pre.indexOf(ele.value);
+                                    if (index === -1) {
+                                        return [...pre, ele.value];
+                                    } else {
+                                        return pre.filter((_, i) => i !== index);
+                                    }
+                                })
+                            }}
+                                checked={selected?.includes(ele.value)} id="checked-checkbox" type="checkbox" value={ele.value} className="w-4 h-4 text-black bg-gray-100 border border-[#0000001a] rounded focus:ring-white dark:focus:ring-white" />
                             <label htmlFor="checked-checkbox" className="ms-2 text-base font-medium text-black">{ele.label}</label>
                         </div>)}
                 </div>
@@ -427,7 +436,7 @@ export function MultiLineGraph({
 }
 
 export function PieChartGraph({
-    title = 'Average processing time',
+    title = '',
     desc = '',
     data = [
         {
@@ -462,7 +471,7 @@ export function PieChartGraph({
                         background: '#ffffff40',
                         color: '#000',
                         border: 'solid 1px #e5e7eb',
-                        backdropFilter: 'blur(6px)',
+                        backdropFilter: 'blur(8px)',
                         maxWidth: '309px',
                         fontSize: '1.1rem',
                         borderRadius: '6px',
@@ -487,9 +496,12 @@ export function PieChartGraph({
                     },
                     series: [
                         {
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
                             name: title,
                             data: data
-                                ?.map(ele => ({ ...ele, name: `${ele.name?.slice(0, 15)}..` }))
                         }
                     ],
                     summarized: false,
