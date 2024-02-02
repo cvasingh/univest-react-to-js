@@ -16,6 +16,7 @@ import { MdCopyAll } from 'react-icons/md';
 import copy from 'copy-to-clipboard';
 
 let url = 'https://static.nextmigrant.com/dist/gcms'
+const params = new URLSearchParams(window.location.search)
 export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
     const [data, setData] = useState({})
@@ -36,6 +37,15 @@ export default function MainComponent() {
                 setTimeout(() => setLoading(false), 500)
             })
     }, [select])
+
+    useEffect(() => {
+        if (params.get('nocontent')) {
+            while (document.getElementById('nocontent')) {
+                var element = document.getElementById('nocontent');
+                element.parentNode.removeChild(element);
+            }
+        }
+    })
 
     if (loading) return <div className='h-screen w-full flex justify-center pt-20'><div className='loader h-10 w-10' /></div>
     return (
