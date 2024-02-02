@@ -39,6 +39,7 @@ export default function MainComponent() {
     }, [select])
 
     useEffect(() => {
+        console.log(params.get('nocontent'));
         if (params.get('nocontent')) {
             while (document.getElementById('nocontent')) {
                 var element = document.getElementById('nocontent');
