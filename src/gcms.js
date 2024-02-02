@@ -16,17 +16,17 @@ import moment from 'moment';
 
 export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
-    const [data, setData] = useState()
+    const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const [select, setSelect] = useState({
-        date: 'Last 4 weeks',
-        country: 'IN',
+        date: 'Last_4_weeks',
+        country: '',
         fileType: '',
         applicationType: ''
     });
-
+    console.log(select);
     useEffect(() => {
-        axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date?.replaceAll(' ', '_')}&applicationType=null&order_details=null`,
+        axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date}&applicationType=null&order_details=null`,
             { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
             .then(res => {
                 setData(res.data)
@@ -39,24 +39,25 @@ export default function MainComponent() {
         <div className='bg-'>
             <div className='flex items-center px-8 mt-10'>
                 <div className='hidden lg:flex  gap-4'>
-                    <select defaultValue={'Month To Date'}
-                        onChange={(e) => setSelect(pre => ({ ...pre, monthToDate: e.target.value }))}
-                        id="monthToDate " className='select-box'>
+                    <select defaultValue={'Last_4_weeks'}
+                        onChange={(e) => setSelect(pre => ({ ...pre, date: e.target.value }))}
+                        id="date" className='select-box'>
                         {[
-                            { value: 'All time', label: 'All time' },
-                            { value: 'Last 7 days', label: 'Last 7 days' },
-                            { value: 'Last 4 weeks', label: 'Last 4 weeks' },
-                            { value: 'Last 3 months', label: 'Last 3 months' },
-                            { value: 'Last 12 months', label: 'Last 12 months' },
-                            { value: 'Month to date', label: 'Month to date' },
-                            { value: 'Year to date', label: 'Year to date' },
+                            { value: 'All_time', label: 'All time' },
+                            { value: 'Last_7_days', label: 'Last 7 days' },
+                            { value: 'Last_4_weeks', label: 'Last 4 weeks' },
+                            { value: 'Last_3_months', label: 'Last 3 months' },
+                            { value: 'Last_12_months', label: 'Last 12 months' },
+                            { value: 'Month_to_date', label: 'Month to date' },
+                            { value: 'Year_to_date', label: 'Year to date' },
                         ]?.map(ele =>
                             <option key={ele.value} value={ele.value}>{ele.label}</option>
                         )}
                     </select>
-                    <select defaultValue='IN'
+
+                    <select defaultValue=''
                         onChange={(e) => setSelect(pre => ({ ...pre, country: e.target.value }))}
-                        id="countries " className='select-box'>
+                        id="countries" className='select-box'>
                         {[
                             { value: '', label: "Worldwide" },
                             { value: "IN", label: "India" },
@@ -296,13 +297,25 @@ export function LineGraph({
 }
 
 
+const colors = ['#8f6ed4', '#b76bc4', '#e37b4c', '#e35951', '#e3a049', '#3298d3', '#6772e4', '#6b7b93']
 
 export function MultiLineGraph({
     title = '',
     desc = '',
-    data = [],
     lineColor = '#202020' }) {
     const [selected, setSelected] = useState(['IN'])
+    const [data, setData] = useState({})
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        axios.get(`https://api.nextmigrant.com/order-detail/get-data-by-country?country=${selected}`,
+            { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
+            .then(res => {
+                setData(res.data)
+                setLoading(false)
+            })
+    }, [selected])
+    console.log(Object.entries(data).map(([k, v], i) => ({ name: k, data: v?.map(e => Object.values(e)) })));
     return (
         <div className=' mx-4 my-8 lg:m-8 border rounded-lg '>
             <div className={`flex items-center rounded-lg p-4 cursor-pointer text-[#000000CC]`}>
@@ -330,107 +343,101 @@ export function MultiLineGraph({
                 />
             </div>
 
-            <div className='flex flex-col lg:flex-row gap-8 bg-white rounded-lg '>
-                <div className='bg-[#00000008] border-t border-r rounded-tr-md border-[#0000001A] hidden lg:flex basis-1/5  flex-col gap-3 p-4'>
-                    {[
-                        { value: "IN", label: "India" },
-                        { value: "NG", label: "Nigeria" },
-                        { value: "PH", label: "Philippines" },
-                        { value: "PK", label: "Pakistan" },
-                        { value: "BD", label: "Bangladesh" },
-                        { value: "BG", label: "Bulgaria" },
-                        { value: "US", label: "United States" }
-                    ]?.map((ele, i) =>
-                        <div className="flex items-center" key={i}>
-                            <input onChange={() => {
-                                setSelected(pre => {
-                                    const index = pre.indexOf(ele.value);
-                                    if (index === -1) {
-                                        return [...pre, ele.value];
-                                    } else {
-                                        return pre.filter((_, i) => i !== index);
-                                    }
-                                })
-                            }}
-                                checked={selected?.includes(ele.value)} id="checked-checkbox" type="checkbox" value={ele.value} className="w-4 h-4 text-black bg-gray-100 border border-[#0000001a] rounded focus:ring-white dark:focus:ring-white" />
-                            <label htmlFor="checked-checkbox" className="ms-2 text-base font-medium text-black">{ele.label}</label>
-                        </div>)}
-                </div>
-                <div className='p-4 w-full lg:basis-4/5 bg-white'>
-                    <HighchartsReact
-                        highcharts={Highcharts}
-                        options={{
-                            chart: {
-                                type: 'spline'
-                            },
-                            title: {
-                                text: null
-                            },
-                            subtitle: {
-                                text: null
-                            },
-                            xAxis: {
-                                // type: 'date',
-                                // categories: [''],
-                                // title: {
-                                //     text: null
-                                // },
-                                labels: { enabled: true, style: { color: '#00000066', fontSize: '12px' } },
-                                crosshair: true,
-                                lineWidth: 2,
-                                tickWidth: 2,
-                                tickColor: '#00000033',
-                                lineColor: '#00000033'
-                            },
-                            yAxis: {
-                                labels: {
-                                    enabled: false
-                                },
-                                min: 0,
-                                gridLineWidth: 0,
-                                title: {
-                                    text: '',
-                                    align: 'high'
-                                }
-                            },
-                            // tooltip: {
-                            //     formatter: function () {
-                            //         return '';
-                            //     }
-                            // },
-                            plotOptions: {
-                                spline: {
-                                    lineWidth: 3,
-                                    states: {
-                                        hover: {
-                                            lineWidth: 4
+            {!loading &&
+                <div className='flex flex-col lg:flex-row gap-8 bg-white rounded-lg '>
+                    <div className='bg-[#00000008] border-t border-r rounded-tr-md border-[#0000001A] hidden lg:flex basis-1/5  flex-col gap-3 p-4'>
+                        {[
+                            { value: "IN", label: "India" },
+                            { value: "NG", label: "Nigeria" },
+                            { value: "PH", label: "Philippines" },
+                            { value: "PK", label: "Pakistan" },
+                            { value: "BD", label: "Bangladesh" },
+                            { value: "BG", label: "Bulgaria" },
+                            { value: "US", label: "United States" }
+                        ]?.map((ele, i) =>
+                            <div className="flex items-center" key={i}>
+                                <input onChange={() => {
+                                    setSelected(pre => {
+                                        const index = pre.indexOf(ele.value);
+                                        if (index === -1) {
+                                            return [...pre, ele.value];
+                                        } else {
+                                            return pre.filter((_, i) => i !== index);
                                         }
-                                    },
-                                    marker: {
+                                    })
+                                }}
+                                    checked={selected?.includes(ele.value)} id={ele.value} type="checkbox" value={ele.value} className="w-4 h-4 text-black bg-gray-100 border border-[#0000001a] rounded focus:ring-white dark:focus:ring-white" />
+                                <label htmlFor={ele.value} className="ms-2 text-base font-medium text-black">{ele.label}</label>
+                            </div>)}
+                    </div>
+                    <div className='p-4 w-full lg:basis-4/5 bg-white'>
+                        <HighchartsReact
+                            highcharts={Highcharts}
+                            options={{
+                                chart: {
+                                    type: 'spline'
+                                },
+                                title: {
+                                    text: null
+                                },
+                                subtitle: {
+                                    text: null
+                                },
+                                xAxis: {
+                                    // type: 'date',
+                                    // categories: [''],
+                                    // title: {
+                                    //     text: null
+                                    // },
+                                    labels: { enabled: true, style: { color: '#00000066', fontSize: '12px' } },
+                                    crosshair: true,
+                                    lineWidth: 2,
+                                    tickWidth: 2,
+                                    tickColor: '#00000033',
+                                    lineColor: '#00000033'
+                                },
+                                yAxis: {
+                                    labels: {
                                         enabled: false
                                     },
-                                    color: lineColor
-                                }
-                            },
-                            legend: {
-                                enabled: false
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            series: [
-                                {
-                                    data
+                                    min: 0,
+                                    gridLineWidth: 0,
+                                    title: {
+                                        text: '',
+                                        align: 'high'
+                                    }
                                 },
-                                {
-                                    data: data?.map(ele => ele - 1)
+                                // tooltip: {
+                                //     formatter: function () {
+                                //         return '';
+                                //     }
+                                // },
+                                plotOptions: {
+                                    spline: {
+                                        lineWidth: 3,
+                                        states: {
+                                            hover: {
+                                                lineWidth: 4
+                                            }
+                                        },
+                                        marker: {
+                                            enabled: false
+                                        },
+                                        color: lineColor
+                                    }
                                 },
-                            ]
-                        }}
-                        containerProps={{ style: { height: "298px" } }}
-                    />
-                </div>
-            </div>
+                                legend: {
+                                    enabled: false
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: Object.entries(data).map(([k, v], i) => ({ name: k, data: v?.map(e => Object.values(e)), color: colors[i] }))
+                            }}
+                            containerProps={{ style: { height: "298px" } }}
+                        />
+                    </div>
+                </div>}
         </div>
     )
 }
