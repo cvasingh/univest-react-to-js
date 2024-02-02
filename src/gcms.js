@@ -9,22 +9,25 @@ import 'react-tooltip/dist/react-tooltip.css'
 import './output.css';
 import './input.css';
 import { Tooltip } from 'react-tooltip'
-import { AiOutlineInfoCircle, AiOutlineShareAlt } from 'react-icons/ai';
+import { AiOutlineArrowLeft, AiOutlineInfoCircle, AiOutlineShareAlt } from 'react-icons/ai';
 import axios from 'axios';
 import moment from 'moment';
+import { MdCopyAll } from 'react-icons/md';
+import copy from 'copy-to-clipboard';
 
-
+let url = 'https://static.nextmigrant.com/dist/gcms'
 export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
+    const [shareOpt, setShareOpt] = useState(false)
     const [select, setSelect] = useState({
         date: 'Last_4_weeks',
         country: '',
         fileType: '',
         applicationType: ''
     });
-    console.log(select);
+
     useEffect(() => {
         axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date}&applicationType=null&order_details=null`,
             { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
@@ -96,13 +99,30 @@ export default function MainComponent() {
                             }} > Refresh data  </span>
                     </div>
 
-                    <div className={`flex items-center border rounded-lg px-4 py-1.5 cursor-pointer bg-[#1A21FF] text-white`}
-                    >
+                    {<div className={`flex items-center border rounded-lg px-4 py-1.5 cursor-pointer bg-[#1A21FF] text-white relative`}
+                        onClick={() => setShareOpt(pre => !pre)}>
                         <span className="text-base font-medium " >
                             Share
                         </span>
                         <AiOutlineShareAlt className='ml-2' size={20} color={'#ffffff'} />
-                    </div>
+                        <div className={` flex-col gap-5 absolute bg-white top-6 right-6 md:top-16 md:right-10 w-72 md:w-80 p-4 rounded-lg shadow-lg z-[10001] border
+                        ${shareOpt ? "flex" : "hidden"}`}>
+                            <div className='flex items-center text-sm font-bold'>
+                                <AiOutlineArrowLeft className='mr-2 cursor-pointer' onClick={() => setShareOpt(false)} /> Share
+                            </div>
+                            <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
+                                <span className=' text-xs md:text-sm font-medium text-black'>Embed</span>
+                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D' onClick={() => copy(`<div id="gcms-timelines"></div><script type="text/javascript" src="${url}.js"></script>`)} />
+                            </div>
+                            {/* <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
+                                <span className=' text-xs md:text-sm font-medium text-black'>Link</span>
+                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D'
+                                    onClick={() => copy(`<iframe allowtransparency="true" allowfullscreen="true" src="${url}.html" frameborder="0" style="min-width:100%;max-width:100%;height:800px;border:none;"></iframe>`)} />
+                            </div> */}
+                        </div>
+                    </div>}
+                    {shareOpt && <div className="fixed top-0 bottom-0 left-0 right-0 z-[10000]" onClick={() => setShareOpt(pre => !pre)} />}
+
                 </div>
             </div>
 
@@ -117,7 +137,7 @@ export default function MainComponent() {
                         Average processing time
                     </div>
                     <div className='frosted-glass text-sm lg:text-lg text-center font-medium text-[#81724D] p-3 lg:p-5 rounded-lg border mx-0 lg:mx-20 mt-4'>
-                        Based on data from 4,561 applications processed over the selected period
+                        Based on data from {1561} applications processed over the selected period
                     </div>
                 </div>
                 <LineGraph
@@ -315,7 +335,7 @@ export function MultiLineGraph({
                 setLoading(false)
             })
     }, [selected])
-    console.log(Object.entries(data).map(([k, v], i) => ({ name: k, data: v?.map(e => Object.values(e)) })));
+
     return (
         <div className=' mx-4 my-8 lg:m-8 border rounded-lg '>
             <div className={`flex items-center rounded-lg p-4 cursor-pointer text-[#000000CC]`}>
