@@ -14,8 +14,9 @@ import axios from 'axios';
 import moment from 'moment';
 import { MdCopyAll } from 'react-icons/md';
 import copy from 'copy-to-clipboard';
+import { FaWhatsapp, FaCode } from 'react-icons/fa';
 
-let url = 'https://static.nextmigrant.com/dist/gcms'
+let url = 'https://nextmigrant.com/timelines/gcms/'
 const params = new URLSearchParams(window.location.search)
 export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
@@ -39,7 +40,6 @@ export default function MainComponent() {
     }, [select])
 
     useEffect(() => {
-        console.log(params.get('nocontent'));
         if (params.get('nocontent')) {
             while (document.getElementById('nocontent')) {
                 var element = document.getElementById('nocontent');
@@ -116,20 +116,31 @@ export default function MainComponent() {
                             Share
                         </span>
                         <AiOutlineShareAlt className='ml-2' size={20} color={'#ffffff'} />
-                        <div className={` flex-col gap-5 absolute bg-white top-6 right-6 md:top-16 md:right-10 w-72 md:w-80 p-4 rounded-lg shadow-lg z-[10001] border
+                        <div className={` flex-col gap-5 absolute bg-white top-6 right-6 md:right-10 w-72 md:w-80 p-4 rounded-lg shadow-lg z-[10001] border
                         ${shareOpt ? "flex" : "hidden"}`}>
-                            <div className='flex items-center text-sm font-bold'>
-                                <AiOutlineArrowLeft className='mr-2 cursor-pointer' onClick={() => setShareOpt(false)} /> Share
-                            </div>
-                            <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
-                                <span className=' text-xs md:text-sm font-medium text-black'>Embed</span>
-                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D' onClick={() => copy(`<div id="gcms-timelines"></div><script type="text/javascript" src="${url}.js"></script>`)} />
+                            <div className='flex items-center text-sm font-bold text-black'>
+                                <AiOutlineArrowLeft className='mr-2 cursor-pointer' color='#202020' onClick={() => setShareOpt(false)} /> Share
                             </div>
                             {/* <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
-                                <span className=' text-xs md:text-sm font-medium text-black'>Link</span>
-                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D'
-                                    onClick={() => copy(`<iframe allowtransparency="true" allowfullscreen="true" src="${url}.html" frameborder="0" style="min-width:100%;max-width:100%;height:800px;border:none;"></iframe>`)} />
+                                <span className=' text-xs md:text-sm font-medium text-black'>Embed</span>
+                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D' onClick={() => copy(`<div id="gcms-timelines"></div><script type="text/javascript" src="${url}.js"></script>`)} />
                             </div> */}
+                            <a href={`https://api.whatsapp.com/send?text=Hey\nCheck out the latest GCMS notes processing times here.\n${url}`}>
+                                <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
+                                    <span className=' text-xs md:text-sm font-medium text-black'>Share on whatsapp</span>
+                                    <FaWhatsapp className='ml-auto cursor-pointer' size={20} color='#81724D' />
+                                </div>
+                            </a>
+                            <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
+                                <span className=' text-xs md:text-sm font-medium text-black'>Copy Link</span>
+                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D'
+                                    onClick={() => copy(url)} />
+                            </div>
+                            <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
+                                <span className=' text-xs md:text-sm font-medium text-black'>Embed Code</span>
+                                <FaCode className='ml-auto cursor-pointer' size={20} color='#81724D'
+                                    onClick={() => copy(`<iframe allowtransparency="true" allowfullscreen="true" src="${url}?nocontent=true" frameborder="0" style="min-width:100%;max-width:100%;height:800px;border:none;background:#FFF"></iframe>`)} />
+                            </div>
                         </div>
                     </div>}
                     {shareOpt && <div className="fixed top-0 bottom-0 left-0 right-0 z-[10000]" onClick={() => setShareOpt(pre => !pre)} />}
