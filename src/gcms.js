@@ -25,6 +25,7 @@ export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
+    const [coped, setCoped] = useState(false)
     const [shareOpt, setShareOpt] = useState(false)
     const [select, setSelect] = useState({
         date: 'Last_4_weeks',
@@ -130,16 +131,21 @@ export default function MainComponent() {
                                 <span className=' text-xs md:text-sm font-medium text-black'>Embed</span>
                                 <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D' onClick={() => copy(`<div id="gcms-timelines"></div><script type="text/javascript" src="${url}.js"></script>`)} />
                             </div> */}
-                            <a href={`https://api.whatsapp.com/send?text=Check out the latest GCMS notes processing times: \n${url}`}>
+                            <a href={`https://api.whatsapp.com/send?text=Check out the latest GCMS notes processing times: \n${url}`} target='_blank'>
                                 <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
                                     <span className=' text-xs md:text-sm font-medium text-black'>Share on Whatsapp</span>
                                     <FaWhatsapp className='ml-auto cursor-pointer' size={20} color='#81724D' />
                                 </div>
                             </a>
                             <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
-                                <span className=' text-xs md:text-sm font-medium text-black'>Copy link</span>
+                                <span className=' text-xs md:text-sm font-medium text-black'>{coped ? 'Copied!' : 'Copy link'}</span>
                                 <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D'
-                                    onClick={() => copy(url)} />
+                                    onClick={(e) => {
+                                        copy(url)
+                                        setCoped(true)
+                                        setTimeout(() => setCoped(false), 2000)
+                                        e.stopPropagation()
+                                    }} />
                             </div>
                             <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
                                 <span className=' text-xs md:text-sm font-medium text-black'>Embed code</span>
