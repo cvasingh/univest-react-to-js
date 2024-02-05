@@ -15,6 +15,9 @@ import moment from 'moment';
 import { MdCopyAll } from 'react-icons/md';
 import copy from 'copy-to-clipboard';
 import { FaWhatsapp, FaCode } from 'react-icons/fa';
+import { RxCross1 } from "react-icons/rx";
+
+
 
 let url = 'https://nextmigrant.com/timelines/gcms/'
 const params = new URLSearchParams(window.location.search)
@@ -31,6 +34,7 @@ export default function MainComponent() {
     });
 
     useEffect(() => {
+        setLoading(true)
         axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date}&applicationType=null&order_details=null`,
             { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
             .then(res => {
@@ -48,7 +52,7 @@ export default function MainComponent() {
         }
     })
 
-    if (loading) return <div className='h-screen w-full flex justify-center pt-20'><div className='loader h-10 w-10' /></div>
+
     return (
         <div className='bg-'>
             <div className='flex items-center px-8 mt-10'>
@@ -118,26 +122,27 @@ export default function MainComponent() {
                         <AiOutlineShareAlt className='ml-2' size={20} color={'#ffffff'} />
                         <div className={` flex-col gap-5 absolute bg-white top-6 right-6 md:right-10 w-72 md:w-80 p-4 rounded-lg shadow-lg z-[10001] border
                         ${shareOpt ? "flex" : "hidden"}`}>
-                            <div className='flex items-center text-sm font-bold text-black'>
-                                <AiOutlineArrowLeft className='mr-2 cursor-pointer' color='#202020' onClick={() => setShareOpt(false)} /> Share
+                            <div className='flex items-center justify-between text-sm font-bold text-black'>
+                                <div>Share</div>
+                                <RxCross1 className='mr-2 cursor-pointer' color='#202020' onClick={() => setShareOpt(false)} />
                             </div>
                             {/* <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
                                 <span className=' text-xs md:text-sm font-medium text-black'>Embed</span>
                                 <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D' onClick={() => copy(`<div id="gcms-timelines"></div><script type="text/javascript" src="${url}.js"></script>`)} />
                             </div> */}
-                            <a href={`https://api.whatsapp.com/send?text=Hey\nCheck out the latest GCMS notes processing times here.\n${url}`}>
+                            <a href={`https://api.whatsapp.com/send?text=Check out the latest GCMS notes processing times: \n${url}`}>
                                 <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
-                                    <span className=' text-xs md:text-sm font-medium text-black'>Share on whatsapp</span>
+                                    <span className=' text-xs md:text-sm font-medium text-black'>Share on Whatsapp</span>
                                     <FaWhatsapp className='ml-auto cursor-pointer' size={20} color='#81724D' />
                                 </div>
                             </a>
                             <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
-                                <span className=' text-xs md:text-sm font-medium text-black'>Copy Link</span>
+                                <span className=' text-xs md:text-sm font-medium text-black'>Copy link</span>
                                 <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D'
                                     onClick={() => copy(url)} />
                             </div>
                             <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
-                                <span className=' text-xs md:text-sm font-medium text-black'>Embed Code</span>
+                                <span className=' text-xs md:text-sm font-medium text-black'>Embed code</span>
                                 <FaCode className='ml-auto cursor-pointer' size={20} color='#81724D'
                                     onClick={() => copy(`<iframe allowtransparency="true" allowfullscreen="true" src="${url}?nocontent=true" frameborder="0" style="min-width:100%;max-width:100%;height:800px;border:none;background:#FFF"></iframe>`)} />
                             </div>
@@ -149,83 +154,87 @@ export default function MainComponent() {
             </div>
 
             <hr className='hidden lg:block' style={{ margin: '1rem' }} />
-
-            <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
-                <div className='w-full lg:basis-1/2 flex flex-col items-center justify-center'>
-                    <div className='text-[70px] font-bold text-[#13231A]'>
-                        {data?.["Work Permit Total Avg"]} Days
+            {loading ?
+                <div className='h-screen w-full flex justify-center pt-20'><div className='loader h-10 w-10' /></div>
+                : <>
+                    <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
+                        <div className='w-full lg:basis-1/2 flex flex-col items-center justify-center'>
+                            <div className='text-[70px] font-bold text-[#13231A]'>
+                                {data?.["Work Permit Total Avg"]} Days
+                            </div>
+                            <div className='text-lg lg:text-xl font-bold text-[#81724D]'>
+                                Average processing time
+                            </div>
+                            <div className='frosted-glass text-sm lg:text-lg text-center font-medium text-[#81724D] p-3 lg:p-5 rounded-lg border mx-0 lg:mx-20 mt-4'>
+                                Based on data from {1561 + data['total_records']} applications processed over the selected period
+                            </div>
+                        </div>
+                        <LineGraph
+                            title='Average processing time'
+                            desc='Average processing time for most applications based on the selected period.'
+                            data={Object.entries(data?.["Study Permit"] ?? {})}
+                            lineColor='#565abf' />
                     </div>
-                    <div className='text-lg lg:text-xl font-bold text-[#81724D]'>
-                        Average processing time
+
+                    <hr className='hidden lg:block' style={{ margin: '1rem' }} />
+
+                    <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
+                        <LineGraph
+                            title='Study permit'
+                            desc='Average processing time for most study permit applications during the selected period.'
+                            data={Object.entries(data?.["Study Permit"] ?? {})}
+                            lineColor='#207bb7' />
+
+                        <PieChartGraph
+                            title='By application types'
+                            data={[
+                                {
+                                    name: "Family Sponsorship Total Avg",
+                                    y: data?.["Family Sponsorship Total Avg"],
+                                    color: "#204289",
+                                },
+                                {
+                                    name: "Permanent Residence Total Avg",
+                                    y: data?.["Permanent Residence Total Avg"],
+                                    color: "#465ba4",
+                                },
+                                {
+                                    name: "Study Permit Total Avg",
+                                    y: data?.["Study Permit Total Avg"],
+                                    color: "#ed6b11",
+                                },
+                                {
+                                    name: "Visitor (Guest) Visa Total Avg",
+                                    y: data?.["Visitor (Guest) Visa Total Avg"],
+                                    color: "#5596ac"
+                                }
+                            ]} />
                     </div>
-                    <div className='frosted-glass text-sm lg:text-lg text-center font-medium text-[#81724D] p-3 lg:p-5 rounded-lg border mx-0 lg:mx-20 mt-4'>
-                        Based on data from {1561} applications processed over the selected period
+
+                    <hr className='hidden lg:block' style={{ margin: '1rem' }} />
+
+                    <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
+                        <LineGraph
+                            title='Permanent residence'
+                            desc='Average processing time for most permanent residence applications during the selected period.'
+                            data={Object.entries(data?.["Permanent Residence"] ?? {})}
+                            lineColor='#159671' />
+
+                        <LineGraph
+                            title='Work permit'
+                            desc='Average processing time for most work permit applications during the selected period.'
+                            data={Object.entries(data?.["Work Permit"] ?? {})}
+                            lineColor='#ce7c3a' />
                     </div>
-                </div>
-                <LineGraph
-                    title='Average processing time'
-                    desc='Average processing time for most applications based on the selected period.'
-                    data={Object.entries(data?.["Study Permit"] ?? {})}
-                    lineColor='#565abf' />
-            </div>
-
-            <hr className='hidden lg:block' style={{ margin: '1rem' }} />
-
-            <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
-                <LineGraph
-                    title='Study permit'
-                    desc='Average processing time for most study permit applications during the selected period.'
-                    data={Object.entries(data?.["Study Permit"] ?? {})}
-                    lineColor='#207bb7' />
-
-                <PieChartGraph
-                    title='By application types'
-                    data={[
-                        {
-                            name: "Family Sponsorship Total Avg",
-                            y: data?.["Family Sponsorship Total Avg"],
-                            color: "#204289",
-                        },
-                        {
-                            name: "Permanent Residence Total Avg",
-                            y: data?.["Permanent Residence Total Avg"],
-                            color: "#465ba4",
-                        },
-                        {
-                            name: "Study Permit Total Avg",
-                            y: data?.["Study Permit Total Avg"],
-                            color: "#ed6b11",
-                        },
-                        {
-                            name: "Visitor (Guest) Visa Total Avg",
-                            y: data?.["Visitor (Guest) Visa Total Avg"],
-                            color: "#5596ac"
-                        }
-                    ]} />
-            </div>
-
-            <hr className='hidden lg:block' style={{ margin: '1rem' }} />
-
-            <div className='flex flex-col lg:flex-row gap-8 mx-4 my-8 lg:m-8'>
-                <LineGraph
-                    title='Permanent residence'
-                    desc='Average processing time for most permanent residence applications during the selected period.'
-                    data={Object.entries(data?.["Permanent Residence"] ?? {})}
-                    lineColor='#159671' />
-
-                <LineGraph
-                    title='Work permit'
-                    desc='Average processing time for most work permit applications during the selected period.'
-                    data={Object.entries(data?.["Work Permit"] ?? {})}
-                    lineColor='#ce7c3a' />
-            </div>
 
 
-            <MultiLineGraph
-                desc='Average processing time for most applications during the selected period for specific countries.'
-                title='By country'
-                data={Object.entries(data?.["Study Permit"] ?? {})}
-                lineColor='#5597AB' />
+                    <MultiLineGraph
+                        desc='Average processing time for most applications during the selected period for specific countries.'
+                        title='By country'
+                        data={Object.entries(data?.["Study Permit"] ?? {})}
+                        lineColor='#5597AB' />
+                </>}
+
         </div>
     )
 }
@@ -349,6 +358,17 @@ export function MultiLineGraph({
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
 
+    const temp = {
+        'IN': 'India',
+        'NG': 'Nigeria',
+        'PH': 'Philippines',
+        'PK': 'Pakistan',
+        'BD': 'Bangladesh',
+        'BG': 'Bulgaria',
+        'US': 'United States'
+    }
+
+
     useEffect(() => {
         axios.get(`https://api.nextmigrant.com/order-detail/get-data-by-country?country=${selected}`,
             { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
@@ -426,11 +446,6 @@ export function MultiLineGraph({
                                     text: null
                                 },
                                 xAxis: {
-                                    // type: 'date',
-                                    // categories: [''],
-                                    // title: {
-                                    //     text: null
-                                    // },
                                     labels: { enabled: true, style: { color: '#00000066', fontSize: '12px' } },
                                     crosshair: true,
                                     lineWidth: 2,
@@ -449,17 +464,12 @@ export function MultiLineGraph({
                                         align: 'high'
                                     }
                                 },
-                                // tooltip: {
-                                //     formatter: function () {
-                                //         return '';
-                                //     }
-                                // },
                                 plotOptions: {
                                     spline: {
-                                        lineWidth: 3,
+                                        lineWidth: 2,
                                         states: {
                                             hover: {
-                                                lineWidth: 4
+                                                lineWidth: 3
                                             }
                                         },
                                         marker: {
@@ -474,7 +484,17 @@ export function MultiLineGraph({
                                 credits: {
                                     enabled: false
                                 },
-                                series: Object.entries(data).map(([k, v], i) => ({ name: k, data: v?.map(e => Object.values(e)), color: colors[i] }))
+                                series: Object.entries(data).map(([k, v], i) => ({ name: k, data: v?.map(e => Object.values(e)), color: colors[i] })),
+                                tooltip: {
+                                    useHTML: true,
+                                    formatter: function () {
+                                        return `<b>${temp[this.series.name] ?? ""}</b>: ${Highcharts.numberFormat(this.y, 0)} days`;
+                                    },
+                                    // Style for the tooltip (optional)
+                                    style: {
+                                        pointerEvents: 'auto'
+                                    }
+                                }
                             }}
                             containerProps={{ style: { height: "298px" } }}
                         />
@@ -563,6 +583,19 @@ export function PieChartGraph({
                     credits: {
                         enabled: false
                     },
+                    tooltip: {
+                        // Enable HTML tooltips
+                        useHTML: true,
+                        // Custom formatter function to define the content of the tooltip
+                        formatter: function () {
+                            // Example content, you can customize it as per your requirement
+                            return `<b>${this.point.name}</b>: ${this.y} days (${Highcharts.numberFormat(this.percentage, 2)}%)`;
+                        },
+                        // Style for the tooltip (optional)
+                        style: {
+                            pointerEvents: 'auto'
+                        }
+                    }
                 }}
                 containerProps={{ style: { height: "298px" } }}
             />
