@@ -125,7 +125,10 @@ export default function MainComponent() {
                         ${shareOpt ? "flex" : "hidden"}`}>
                             <div className='flex items-center justify-between text-sm font-bold text-black'>
                                 <div>Share</div>
-                                <RxCross1 className='mr-2 cursor-pointer' color='#202020' onClick={() => setShareOpt(false)} />
+                                <RxCross1 className='mr-2 cursor-pointer' color='#202020' onClick={(e) => {
+                                    setShareOpt(false)
+                                    e.stopPropagation()
+                                }} />
                             </div>
                             {/* <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
                                 <span className=' text-xs md:text-sm font-medium text-black'>Embed</span>
@@ -313,11 +316,19 @@ export function LineGraph({
                             align: 'high'
                         }
                     },
-                    // tooltip: {
-                    //     formatter: function () {
-                    //         return '';
-                    //     }
-                    // },
+                    tooltip: {
+                        // Enable HTML tooltips
+                        useHTML: true,
+                        // Custom formatter function to define the content of the tooltip
+                        formatter: function () {
+                            // Example content, you can customize it as per your requirement
+                            return `<b>${this.point.name}</b>: ${this.y} days`;
+                        },
+                        // Style for the tooltip (optional)
+                        style: {
+                            pointerEvents: 'auto'
+                        }
+                    },
                     plotOptions: {
                         spline: {
                             lineWidth: 3,
