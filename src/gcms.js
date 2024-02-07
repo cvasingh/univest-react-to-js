@@ -112,7 +112,7 @@ export default function MainComponent() {
                                 setDate(moment())
                                 setLoading(true)
                                 setTimeout(() => setLoading(false), 500)
-                            }} > Refresh data  </span>
+                            }}> Refresh data  </span>
                     </div>
 
                     {<div className={`flex items-center border rounded-lg px-4 py-1.5 cursor-pointer bg-[#1A21FF] text-white relative`}
@@ -140,15 +140,15 @@ export default function MainComponent() {
                                     <FaWhatsapp className='ml-auto cursor-pointer' size={20} color='#81724D' />
                                 </div>
                             </a>
-                            <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
+                            <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'
+                                onClick={(e) => {
+                                    copy(url)
+                                    setCoped(true)
+                                    setTimeout(() => setCoped(false), 2000)
+                                    e.stopPropagation()
+                                }}>
                                 <span className=' text-xs md:text-sm font-medium text-black'>{coped ? 'Copied!' : 'Copy link'}</span>
-                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D'
-                                    onClick={(e) => {
-                                        copy(url)
-                                        setCoped(true)
-                                        setTimeout(() => setCoped(false), 2000)
-                                        e.stopPropagation()
-                                    }} />
+                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D' />
                             </div>
                             <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
                                 <span className=' text-xs md:text-sm font-medium text-black'>Embed code</span>
@@ -254,6 +254,7 @@ export function LineGraph({
     desc = '',
     data = [],
     lineColor = '#202020' }) {
+
     return (
         <div className='border rounded-lg p-4 w-full lg:basis-1/2 bg-white'>
             <div className={`flex items-center rounded-lg px-4 py-2 cursor-pointer text-[#000000CC]`}>
@@ -303,7 +304,8 @@ export function LineGraph({
                         lineWidth: 2,
                         tickWidth: 2,
                         tickColor: '#00000033',
-                        lineColor: '#00000033'
+                        lineColor: '#00000033',
+                        categories: Object.entries(data)?.map(([k, v]) => moment(v[0], 'YYYY-MM-DD').format("DD 'MMM YY"))
                     },
                     yAxis: {
                         labels: {
@@ -354,7 +356,7 @@ export function LineGraph({
                     series: [
                         {
                             name: title,
-                            data
+                            data: Object.entries(data)?.map(([k, v]) => v)
                         }
                     ]
                 }}
