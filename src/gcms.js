@@ -63,7 +63,7 @@ export default function MainComponent() {
                     onClick={() => setMF(pre => !pre)}
                 >Filters</div>
 
-                <div className={`${mF ? 'flex' : 'hidden'} flex-col lg:flex lg:flex-row  gap-4 absolute top-4 rounded-xl shadow-2xl lg:shadow-none lg:static bg-white p-3 lg:p-0 border lg:border-0`}>
+                <div className={`${mF ? 'flex z-[10001]' : 'hidden'} flex-col lg:flex lg:flex-row  gap-4 absolute top-4 rounded-xl shadow-2xl lg:shadow-none lg:static bg-white p-3 lg:p-0 border lg:border-0`}>
                     <select defaultValue={'Last_4_weeks'}
                         onChange={(e) => setSelect(pre => ({ ...pre, date: e.target.value }))}
                         id="date" className='select-box'>
@@ -112,7 +112,7 @@ export default function MainComponent() {
                 </div>
 
                 <div className='flex flex-col lg:flex-row lg:items-center items-end gap-2 lg:gap-4 ml-auto'>
-                    <div className="text-base font-medium text-[#13231A99] text-right" >
+                    <div className="text-sm lg:text-base font-medium text-[#13231A99] text-right" >
                         Last updated:  {moment(date).fromNow()}<br className='flex lg:hidden' /> <span className="text-[#1A21FF]"
                             onClick={() => {
                                 setDate(moment())
@@ -163,7 +163,10 @@ export default function MainComponent() {
                             </div>
                         </div>
                     </div>}
-                    {shareOpt && <div className="fixed top-0 bottom-0 left-0 right-0 z-[10000]" onClick={() => setShareOpt(pre => !pre)} />}
+                    {(shareOpt || mF) && <div className="fixed top-0 bottom-0 left-0 right-0 z-[10000]" onClick={() => {
+                        setShareOpt(pre => !pre)
+                        setMF(pre => !pre)
+                    }} />}
 
                 </div>
             </div>
