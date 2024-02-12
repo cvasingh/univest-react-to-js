@@ -25,16 +25,18 @@ export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
+    const [mF, setMF] = useState(false)
     const [coped, setCoped] = useState(false)
     const [shareOpt, setShareOpt] = useState(false)
     const [select, setSelect] = useState({
-        date: 'Last_4_weeks',
+        date: 'Last_3_months',
         country: '',
         fileType: '',
         applicationType: ''
     });
 
     useEffect(() => {
+        setMF(false)
         setLoading(true)
         axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date}&applicationType=null&order_details=null`,
             { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
@@ -56,8 +58,12 @@ export default function MainComponent() {
 
     return (
         <div className='bg-'>
-            <div className='flex items-center px-8 mt-10'>
-                <div className='hidden lg:flex  gap-4'>
+            <div className='flex items-center px-4 lg:px-8 mt-10 relative'>
+                <div className='px-3 py-1 rounded-md shadow border lg:hidden'
+                    onClick={() => setMF(pre => !pre)}
+                >Filters</div>
+
+                <div className={`${mF ? 'flex' : 'hidden'} flex-col lg:flex lg:flex-row  gap-4 absolute top-4 rounded-xl shadow-2xl lg:shadow-none lg:static bg-white p-3 lg:p-0 border lg:border-0`}>
                     <select defaultValue={'Last_4_weeks'}
                         onChange={(e) => setSelect(pre => ({ ...pre, date: e.target.value }))}
                         id="date" className='select-box'>
@@ -106,8 +112,8 @@ export default function MainComponent() {
                 </div>
 
                 <div className='flex flex-col lg:flex-row lg:items-center items-end gap-2 lg:gap-4 ml-auto'>
-                    <div className="text-base font-medium text-[#13231A99]" >
-                        Last updated:  {moment(date).fromNow()} <span className="text-[#1A21FF]"
+                    <div className="text-base font-medium text-[#13231A99] text-right" >
+                        Last updated:  {moment(date).fromNow()}<br className='flex lg:hidden' /> <span className="text-[#1A21FF]"
                             onClick={() => {
                                 setDate(moment())
                                 setLoading(true)
@@ -115,7 +121,7 @@ export default function MainComponent() {
                             }}> Refresh data  </span>
                     </div>
 
-                    {<div className={`flex items-center border rounded-lg px-4 py-1.5 cursor-pointer bg-[#1A21FF] text-white relative`}
+                    {<div className={`hidden lg:flex items-center border rounded-lg px-4 py-1.5 cursor-pointer bg-[#1A21FF] text-white relative`}
                         onClick={() => setShareOpt(pre => !pre)}>
                         <span className="text-base font-medium " >
                             Share
