@@ -56,6 +56,14 @@ export default function MainComponent() {
             }
         }
     })
+    useEffect(() => {
+        if (shareOpt || mF || embedCode) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'unset'
+        }
+    }, [shareOpt, mF, embedCode])
+
 
 
     return (
@@ -166,7 +174,7 @@ export default function MainComponent() {
                         </div>
                     </div>}
                     {embedCode &&
-                        <div className='fixed z-[10001] w-[600px] h-[300px] m-auto inset-x-0 inset-y-0 p-4 bg-white border overflow-y-scroll rounded-lg shadow-2xl px-8 py-6'>
+                        <div className='fixed z-[10001] w-11/12 lg:w-[600px] h-auto m-auto inset-x-0 top-1/3 p-4 bg-white border overflow-y-scroll rounded-lg shadow-2xl px-8 py-6'>
                             <div className='flex items-center justify-between text-base font-bold text-black'>
                                 <div>Embed this on your website</div>
                                 <RxCross1 className='mr-2 cursor-pointer' color='#202020' onClick={(e) => {
@@ -174,7 +182,7 @@ export default function MainComponent() {
                                     e.stopPropagation()
                                 }} />
                             </div>
-                            <code className="block rounded-lg" id='app_wizards'>
+                            <code className="block rounded-lg select-all" id='app_wizards'>
                                 {iframe}
                             </code>
                             <style>{`
@@ -194,7 +202,7 @@ export default function MainComponent() {
                                 overflow-y: auto
                             }
                             `}</style>
-                            <div className='w-[120px] mt-5 mx-auto shadow  border rounded-lg px-4 py-1.5 cursor-pointer bg-[#0462FE] text-white text-center'
+                            <div className='w-[120px] mt-5 mx-auto shadow  border rounded-lg px-4 pt-[5px] pb-1.5 cursor-pointer bg-[#0462FE] text-white text-center'
                                 onClick={() => {
                                     copy(iframe)
                                     setCopied(true)
