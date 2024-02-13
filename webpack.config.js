@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = {
     entry: './src/gcms.js',
     output: {
-        path: path.resolve('dist'),
+        path: path.resolve(''),
         filename: 'gcms.js',
         libraryTarget: 'umd',
         globalObject: 'this',
@@ -12,7 +12,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx|ts|tsx)$/, 
+                test: /\.(js|jsx|ts|tsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
