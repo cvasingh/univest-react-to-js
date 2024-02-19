@@ -54,7 +54,7 @@ export default function MainComponent() {
                 var element = document.getElementById('nocontent');
                 element.parentNode.removeChild(element);
             }
-            document.body.style.backgroundColor = '#FFF'
+            document.body.style.backgroundImage = "url('')"
         }
     })
     useEffect(() => {
