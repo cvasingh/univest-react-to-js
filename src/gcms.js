@@ -18,17 +18,10 @@ import { FaWhatsapp, FaCode, FaAngleDown } from 'react-icons/fa';
 import { RxCross1 } from "react-icons/rx";
 
 
+
 let url = 'https://nextmigrant.com/timelines/gcms/';
 let iframe = `<iframe allowtransparency="true" allowfullscreen="true" src="${url}?nocontent=true" frameborder="0" style="min-width:100%; max-width:100%; height:800px; border:none; background:#FFF"> </iframe>`
 const params = new URLSearchParams(window.location.search)
-
-if (params.get('nocontent')) {
-    while (document.getElementById('nocontent')) {
-        var element = document.getElementById('nocontent');
-        element.parentNode.removeChild(element);
-    }
-    document.body.style.backgroundImage = "url('')"
-}
 export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
     const [data, setData] = useState({})
@@ -55,6 +48,18 @@ export default function MainComponent() {
             })
     }, [select])
 
+    useEffect(() => {
+        if (params.get('nocontent')) {
+            while (document.getElementById('nocontent')) {
+                var element = document.getElementById('nocontent');
+                element.parentNode.removeChild(element);
+            }
+            document.body.style.backgroundImage = '';
+            document.body.style.background = '';
+            document.body.style.backgroundUrl = '';
+            document.body.style.backgroundColor = '#FFF';
+        }
+    })
     useEffect(() => {
         if (shareOpt || mF || embedCode) {
             document.body.style.overflow = 'hidden'
