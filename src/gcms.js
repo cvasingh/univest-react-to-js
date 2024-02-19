@@ -54,6 +54,7 @@ export default function MainComponent() {
                 var element = document.getElementById('nocontent');
                 element.parentNode.removeChild(element);
             }
+            document.getElementById('gcms-timelines').style.backgroundColor = '#FFF'
         }
     })
     useEffect(() => {
