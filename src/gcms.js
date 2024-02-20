@@ -8,6 +8,7 @@ import HighchartsReact from "highcharts-react-official";
 import 'react-tooltip/dist/react-tooltip.css'
 import './output.css';
 import './input.css';
+import './index.css';
 import { Tooltip } from 'react-tooltip'
 import { AiOutlineArrowLeft, AiOutlineInfoCircle, AiOutlineShareAlt } from 'react-icons/ai';
 import axios from 'axios';
@@ -55,7 +56,7 @@ export default function MainComponent() {
                 element.parentNode.removeChild(element);
             }
         } else {
-            document.body.classList.add('body-style')
+            document.body.id = 'body-style'
         }
     })
     useEffect(() => {
@@ -309,16 +310,6 @@ export default function MainComponent() {
                         data={Object.entries(data?.["Study Permit"] ?? {})}
                         lineColor='#5597AB' />
                 </>}
-            <style>
-                {`
-                    .body-style {
-                        background: #fff;
-                        background-image: url('https://cdn.nextmigrant.com/wp-content/uploads/2024/01/nm-bg-1.jpeg') !important;
-                        background-repeat: no-repeat;
-                        background-size: 200% 400px;
-                    }
-                `}
-            </style>
         </div>
     )
 }
