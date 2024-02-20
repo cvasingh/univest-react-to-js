@@ -54,10 +54,11 @@ export default function MainComponent() {
                 var element = document.getElementById('nocontent');
                 element.parentNode.removeChild(element);
             }
-            document.body.style.backgroundImage = '';
-            document.body.style.background = '';
-            document.body.style.backgroundUrl = '';
-            document.body.style.backgroundColor = '#FFF';
+        } else {
+            document.body.style.backgroundImage = "url('https://cdn.nextmigrant.com/wp-content/uploads/2024/01/nm-bg-1.jpeg')";
+            document.body.style.backgroundSize = "200% 400px";
+            document.body.style.backgroundRepeat = "no-repeat";
+
         }
     })
     useEffect(() => {
