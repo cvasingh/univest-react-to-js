@@ -188,23 +188,6 @@ export default function MainComponent() {
                             <code className="block rounded-lg select-all" id='app_wizards'>
                                 {iframe}
                             </code>
-                            <style>{`
-                            #app_wizards{
-                                color: #202020;
-                                white-space: pre-wrap;
-                                word-wrap: break-word;
-                                resize: none;
-                                background-color: rgb(242 246 252);
-                                border: 1px solid #c8ceed;
-                                width: 100%;
-                                max-height: 200px;
-                                margin: 12px 0 0;
-                                padding: 12px 16px;
-                                font-size: 14px;
-                                line-height: 24px;
-                                overflow-y: auto
-                            }
-                            `}</style>
                             <div className='w-[120px] mt-5 mx-auto shadow  border rounded-lg px-4 pt-[1px] pb-2 cursor-pointer bg-[#0462FE] text-white text-center'
                                 onClick={() => {
                                     copy(iframe)
