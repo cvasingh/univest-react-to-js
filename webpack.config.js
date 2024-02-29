@@ -2,10 +2,13 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/gcms.js',
+    entry: {
+        "gcms": './src/gcms.js',
+        "study-permit": './src/study-permit.js',
+    },
     output: {
-        path: path.resolve(''),
-        filename: 'gcms.js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].js',
         libraryTarget: 'umd',
         globalObject: 'this',
     },

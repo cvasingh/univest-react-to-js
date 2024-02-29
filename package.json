@@ -25,6 +25,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.12.0",
     "axios": "^1.6.5",
     "copy-to-clipboard": "^3.3.3",
     "highcharts": "^11.3.0",
@@ -35,6 +36,7 @@
     "react-icons": "^5.0.1",
     "react-scripts": "^5.0.1",
     "react-select": "^5.8.0",
+    "react-table": "^7.8.0",
     "react-tooltip": "^5.26.0"
   },
   "browserslist": {

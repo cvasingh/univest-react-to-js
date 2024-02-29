@@ -1,16 +1,12 @@
 
 import { createRoot } from 'react-dom/client';
-import MainComponent from './gcms';
-import { useEffect } from 'react';
+import MainComponent from './study-permit';
 
 
 // Render your React component instead
 const root = createRoot(document.getElementById('gcms-timelines'));
 
 function AppWithCallbackAfterRender() {
-    useEffect(() => {
-        console.log('rendered');
-    });
 
     return <MainComponent />
 }

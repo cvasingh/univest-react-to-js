@@ -556,6 +556,18 @@ video {
   bottom: 0px;
 }
 
+.bottom-4 {
+  bottom: 1rem;
+}
+
+.end-0 {
+  inset-inline-end: 0px;
+}
+
+.end-0\.5 {
+  inset-inline-end: 0.125rem;
+}
+
 .left-0 {
   left: 0px;
 }
@@ -590,6 +602,10 @@ video {
 
 .z-\[10001\] {
   z-index: 10001;
+}
+
+.m-4 {
+  margin: 1rem;
 }
 
 .m-auto {
@@ -632,6 +648,10 @@ video {
   margin-right: 0.5rem;
 }
 
+.mr-8 {
+  margin-right: 2rem;
+}
+
 .ms-2 {
   margin-inline-start: 0.5rem;
 }
@@ -648,6 +668,10 @@ video {
   margin-top: 1.25rem;
 }
 
+.mt-6 {
+  margin-top: 1.5rem;
+}
+
 .block {
   display: block;
 }
@@ -656,12 +680,20 @@ video {
   display: flex;
 }
 
+.table {
+  display: table;
+}
+
 .hidden {
   display: none;
 }
 
 .h-10 {
   height: 2.5rem;
+}
+
+.h-11 {
+  height: 2.75rem;
 }
 
 .h-4 {
@@ -678,6 +710,10 @@ video {
 
 .w-10 {
   width: 2.5rem;
+}
+
+.w-11 {
+  width: 2.75rem;
 }
 
 .w-11\/12 {
@@ -708,6 +744,10 @@ video {
   flex-basis: 20%;
 }
 
+.table-auto {
+  table-layout: auto;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -715,10 +755,6 @@ video {
 .select-all {
   -webkit-user-select: all;
           user-select: all;
-}
-
-.resize {
-  resize: both;
 }
 
 .flex-col {
@@ -761,8 +797,16 @@ video {
   gap: 2rem;
 }
 
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
 .rounded {
   border-radius: 0.25rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .rounded-lg {
@@ -783,6 +827,15 @@ video {
 
 .border {
   border-width: 1px;
+}
+
+.border-y {
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+
+.border-b {
+  border-bottom-width: 1px;
 }
 
 .border-r {
@@ -806,6 +859,11 @@ video {
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
+.border-blue-100 {
+  --tw-border-opacity: 1;
+  border-color: rgb(219 234 254 / var(--tw-border-opacity));
+}
+
 .bg-\[\#00000008\] {
   background-color: #00000008;
 }
@@ -813,6 +871,10 @@ video {
 .bg-\[\#0462FE\] {
   --tw-bg-opacity: 1;
   background-color: rgb(4 98 254 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#13231A0D\] {
+  background-color: #13231A0D;
 }
 
 .bg-\[\#20202026\] {
@@ -886,6 +948,10 @@ video {
   padding-bottom: 0.5rem;
 }
 
+.pr-6 {
+  padding-right: 1.5rem;
+}
+
 .pt-20 {
   padding-top: 5rem;
 }
@@ -935,8 +1001,16 @@ video {
   font-weight: 700;
 }
 
+.font-extrabold {
+  font-weight: 800;
+}
+
 .font-medium {
   font-weight: 500;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .text-\[\#000000CC\] {
@@ -1026,6 +1100,10 @@ video {
   color: #111827;
   background-color: #F9FAFB !important;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.even\:bg-\[\#81724D0D\]:nth-child(even) {
+  background-color: #81724D0D;
 }
 
 .focus\:ring-white:focus {
