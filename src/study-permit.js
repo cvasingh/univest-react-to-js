@@ -19,84 +19,15 @@ import { FaWhatsapp, FaCode, FaAngleDown, FaSortUp, FaSortDown, FaSort } from 'r
 import { RxCross1 } from "react-icons/rx";
 import { useMemo } from 'react';
 import { Tooltip } from 'react-tooltip';
+import { useEffect } from 'react';
 
 
-let url = 'https://nextmigrant.com/timelines/gcms/';
+let url = 'https://nextmigrant.com/timelines/study-permit/';
 let iframe = `<iframe allowtransparency="true" allowfullscreen="true" src="${url}?nocontent=true" frameborder="0" style="min-width:100%; max-width:100%; height:800px; border:none; background:#FFF"> </iframe>`
 const params = new URLSearchParams(window.location.search)
 export default function MainComponent() {
     const [date, setDate] = useState(moment().subtract(25, 'minute'))
-    const [data, setData] = useState([
-        {
-            "id": 36,
-            "firstName": "Jimin Mochi",
-            "email": "jiminmochi99999@gmail.com",
-            "contactNumber": null,
-            "role": "USER",
-            "profileImageUrl": "https://lh3.googleusercontent.com/a/ACg8ocLIfk6ZQlEvnuIgFCOY53SiJSa5AI-ZXZQ3U6Dd2pBr=s96-c",
-            "isVerified": true,
-            "createdAt": "2023-10-16T09:38:26.626442+05:30",
-            "modifiedAt": "2023-10-16T09:38:26.626449+05:30",
-            "googleLogin": true,
-            "normalLogin": false,
-            "consultant": false
-        },
-        {
-            "id": 37,
-            "firstName": null,
-            "email": "dicksonesema4@gmail.com",
-            "contactNumber": null,
-            "role": "USER",
-            "profileImageUrl": null,
-            "isVerified": false,
-            "createdAt": "2023-10-16T09:52:20.813834+05:30",
-            "modifiedAt": null,
-            "googleLogin": false,
-            "normalLogin": false,
-            "consultant": false
-        },
-        {
-            "id": 38,
-            "firstName": "T RAGE",
-            "email": "madhavishree115@gmail.com",
-            "contactNumber": null,
-            "role": "USER",
-            "profileImageUrl": "https://lh3.googleusercontent.com/a/ACg8ocKXA21EKDzOAXaOZ8sTIN1QPW9cYPzfGfDNe1BD225In-Q=s96-c",
-            "isVerified": true,
-            "createdAt": "2023-10-16T11:19:04.052574+05:30",
-            "modifiedAt": "2023-10-16T11:19:04.052578+05:30",
-            "googleLogin": true,
-            "normalLogin": false,
-            "consultant": false
-        },
-        {
-            "id": 4,
-            "firstName": null,
-            "email": "adityarathor.evirgo@gmail.com",
-            "contactNumber": null,
-            "role": "USER",
-            "profileImageUrl": null,
-            "isVerified": false,
-            "createdAt": "2023-09-05T05:34:54.143334+05:30",
-            "modifiedAt": null,
-            "googleLogin": false,
-            "normalLogin": false,
-            "consultant": false
-        },
-        {
-            "id": 5,
-            "firstName": "Aditya Rathore",
-            "email": "aditya@nextmigrant.com",
-            "contactNumber": null,
-            "role": "USER",
-            "profileImageUrl": "https://lh3.googleusercontent.com/a/AAcHTtensFu44oTjUx0a57UFJdG_74T3qep3kszBAgRdcJ7ZUA=s96-c",
-            "isVerified": true,
-            "createdAt": "2023-09-05T05:35:51.10845+05:30",
-            "modifiedAt": "2023-09-05T05:35:51.108459+05:30",
-            "googleLogin": true,
-            "normalLogin": false,
-            "consultant": false
-        }])
+    const [data, setData] = useState([])
     const [loading, setLoading] = useState(!true)
     const [mF, setMF] = useState(false)
     const [embedCode, setEmbedCode] = useState(false)
@@ -109,16 +40,15 @@ export default function MainComponent() {
         applicationType: ''
     });
 
-    // useEffect(() => {
-    //     setMF(false)
-    //     setLoading(true)
-    //     axios.get(`https://api.nextmigrant.com/order-detail/get-data?country=${select?.country}&fileType=null&monthToDate=${select?.date}&applicationType=null&order_details=null`,
-    //         { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiaWF0IjoxNzA0NzM0NzMzfQ.U8LWOf-w9glmVqlkJbzU3YZ6w_oI5LQpaPgnLgqly1q1JUzYGBoJXSIqpwVUwSZS` } })
-    //         .then(res => {
-    //             setData(res.data)
-    //             setTimeout(() => setLoading(false), 500)
-    //         })
-    // }, [select])
+    useEffect(() => {
+        setMF(false)
+        setLoading(true)
+        axios.get(`https://api.nextmigrant.com/document-ai/get-application-timelines`)
+            .then(res => {
+                setData(res.data)
+                setTimeout(() => setLoading(false), 500)
+            })
+    }, [])
 
     // useEffect(() => {
     //     if (params.get('nocontent')) {
@@ -299,60 +229,48 @@ const COLUMNS = [
         //         <span className='text-xl uppercase font-extrabold'>{ele?.row?.original?.firstName?.slice(0, 1)}</span>
         //     </div>
     },
-    {
-        Header: "Id",
-        Footer: "Id",
-        accessor: "id"
-    },
-    {
-        Header: "Name",
-        Footer: "Name",
-        accessor: "firstName"
-    },
-    {
-        Header: "Role",
-        Footer: "Role",
-        accessor: "role"
-    },
-    {
-        Header: "Email",
-        Footer: "Email",
-        accessor: "email"
-    },
-    {
-        Header: "createdAt",
-        Footer: "createdAt",
-        accessor: "createdAt",
-        Cell: ({ value }) => moment(value).format('DD MMM yyyy')
-    },
-    {
-        Header: "Verified",
-        Footer: "Verified",
-        accessor: "isVerified",
-        Cell: ({ value }) => value ? 'Yes' : 'No'
-    },
-    {
-        Header: "Google Login",
-        Footer: "Google Login",
-        accessor: "googleLogin",
-        Cell: ({ value }) => value ? 'Yes' : 'No'
-    }
+    { "Header": "id", "Footer": "id", "accessor": "id" },
+    { "Header": "appNumber", "Footer": "appNumber", "accessor": "appNumber" },
+    { "Header": "appType", "Footer": "appType", "accessor": "appType" },
+    { "Header": "appDate", "Footer": "appDate", "accessor": "appDate" },
+    { "Header": "appPo", "Footer": "appPo", "accessor": "appPo" },
+    { "Header": "appSo", "Footer": "appSo", "accessor": "appSo" },
+    { "Header": "finalDecision", "Footer": "finalDecision", "accessor": "finalDecision" },
+    { "Header": "finalDecisionDate", "Footer": "finalDecisionDate", "accessor": "finalDecisionDate" },
+    { "Header": "appDob", "Footer": "appDob", "accessor": "appDob" },
+    { "Header": "destinationProvince", "Footer": "destinationProvince", "accessor": "destinationProvince" },
+    { "Header": "destinationCity", "Footer": "destinationCity", "accessor": "destinationCity" },
+    { "Header": "availableFunds", "Footer": "availableFunds", "accessor": "availableFunds" },
+    { "Header": "appSchool", "Footer": "appSchool", "accessor": "appSchool" },
+    { "Header": "levelOfStudy", "Footer": "levelOfStudy", "accessor": "levelOfStudy" },
+    { "Header": "fieldOfStudy", "Footer": "fieldOfStudy", "accessor": "fieldOfStudy" },
+    { "Header": "lengthOfStudy", "Footer": "lengthOfStudy", "accessor": "lengthOfStudy" },
+    { "Header": "appCitizenship", "Footer": "appCitizenship", "accessor": "appCitizenship" },
+    { "Header": "appResidence", "Footer": "appResidence", "accessor": "appResidence" },
+    { "Header": "canSpeakEnglish", "Footer": "canSpeakEnglish", "accessor": "canSpeakEnglish" },
+    { "Header": "canSpeakFrench", "Footer": "canSpeakFrench", "accessor": "canSpeakFrench" },
+    { "Header": "appCity", "Footer": "appCity", "accessor": "appCity" },
+    { "Header": "criminalityDate", "Footer": "criminalityDate", "accessor": "criminalityDate" },
+    { "Header": "biometricsDate", "Footer": "biometricsDate", "accessor": "biometricsDate" },
+    { "Header": "appGender", "Footer": "appGender", "accessor": "appGender" },
+    { "Header": "infoSharingDate", "Footer": "infoSharingDate", "accessor": "infoSharingDate" },
+    { "Header": "expensePaid", "Footer": "expensePaid", "accessor": "expensePaid" },
+    { "Header": "appStatus", "Footer": "appStatus", "accessor": "appStatus" },
 ]
 
 // for searching
-const GlobalFilter = ({ filter, setFilter }) => {
-    return (
-        <span>
-            Search:
-            <input value={filter || ''} onChange={e => setFilter(e.target.value)} className='border rounded mr-8' />
-        </span>
-    )
-}
+// const GlobalFilter = ({ filter, setFilter }) => {
+//     return (
+//         <span>
+//             Search:
+//             <input value={filter || ''} onChange={e => setFilter(e.target.value)} className='border rounded mr-8' />
+//         </span>
+//     )
+// }
 
 export function DetailsTable({ DATA }) {
     const columns = useMemo(() => COLUMNS, [])
-    const data = useMemo(() => DATA, [])
-
+    const data = useMemo(() => DATA, []);
     const {
         getTableProps,
         getTableBodyProps,
@@ -390,43 +308,45 @@ export function DetailsTable({ DATA }) {
             </select>
             <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         </div> */}
-        <table {...getTableProps()} className="table-auto w-full mt-5">
-            <thead>
-                {headerGroups.map((headerGroup, h) => (
-                    <tr {...headerGroup.getHeaderGroupProps()} key={h}>
-                        {headerGroup.headers.map((column, c) => (
-                            <th {...column.getHeaderProps(
-                                [{ className: column.className },
-                                column.getSortByToggleProps(),
-                                ]
-                            )} className='border-y border-blue-100 bg-[#13231A0D] p-3 pr-6 relative whitespace-nowrap' key={c}>
-                                {column.render('Header')}
-                                <div className='absolute bottom-4 end-0.5'>
-                                    {column.isSorted ? (column.isSortedDesc ?
-                                        <FaSortUp /> :
-                                        <FaSortDown />) :
-                                        <FaSort />}
-                                </div>
-                            </th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody {...getTableBodyProps()} className="table-group-divider">
-                {page.map((row, r) => {
-                    prepareRow(row)
-                    return <tr {...row.getRowProps({
-                        onClick: () => console.log(`/admin?userId=${row?.original?.id}`),
-                    })} className="even:bg-[#81724D0D] border-t" key={r} >
-                        {row.cells.map((cell, c) => (
-                            <td {...cell.getCellProps()} className="border-b p-4 whitespace-nowrap" key={c}>
-                                {cell.render('Cell')}
-                            </td>
-                        ))}
-                    </tr>
-                })}
-            </tbody>
-        </table>
+        <div className='overflow-x-auto w-full'>
+            <table {...getTableProps()} className="table-auto w-full  mt-5">
+                <thead>
+                    {headerGroups.map((headerGroup, h) => (
+                        <tr {...headerGroup.getHeaderGroupProps()} key={h}>
+                            {headerGroup.headers.map((column, c) => (
+                                <th {...column.getHeaderProps(
+                                    [{ className: column.className },
+                                    column.getSortByToggleProps(),
+                                    ]
+                                )} className='border-y border-blue-100 bg-[#13231A0D] p-3 pr-6 relative whitespace-nowrap' key={c}>
+                                    {column.render('Header')}
+                                    <div className='absolute bottom-4 end-0.5'>
+                                        {column.isSorted ? (column.isSortedDesc ?
+                                            <FaSortUp /> :
+                                            <FaSortDown />) :
+                                            <FaSort />}
+                                    </div>
+                                </th>
+                            ))}
+                        </tr>
+                    ))}
+                </thead>
+                <tbody {...getTableBodyProps()} className="table-group-divider">
+                    {page.map((row, r) => {
+                        prepareRow(row)
+                        return <tr {...row.getRowProps({
+                            onClick: () => console.log(`/admin?userId=${row?.original?.id}`),
+                        })} className="even:bg-[#81724D0D] border-t" key={r} >
+                            {row.cells.map((cell, c) => (
+                                <td {...cell.getCellProps()} className="border-b p-4 whitespace-nowrap" key={c}>
+                                    {cell.render('Cell')}
+                                </td>
+                            ))}
+                        </tr>
+                    })}
+                </tbody>
+            </table>
+        </div>
         <div className="mt-6 flex justify-center gap-2 items-center w-full" role="group" aria-label="Basic example">
             <button className="btn btn-primary" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
                 <MdFirstPage />
