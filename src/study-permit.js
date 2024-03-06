@@ -199,15 +199,14 @@ export default function MainComponent() {
 // set columns 
 const COLUMNS = [
     {
-        Header: "Profile",
-        Footer: "Profile",
-        accessor: "profileImageUrl",
+        "Header": "User",
+        "accessor": "username",
         Cell: (ele) => <>
-            <span data-tooltip-id={ele?.row?.original?.firstName?.replaceAll(' ', '_')}>
-                {ele?.row?.original?.firstName?.slice(0, 5)}..
+            <span data-tooltip-id={ele?.row?.original?.username?.replaceAll(' ', '_')}>
+                {ele?.row?.original?.username?.slice(0, 5)}..
             </span>
             <Tooltip
-                id={ele?.row?.original?.firstName?.replaceAll(' ', '_')}
+                id={ele?.row?.original?.username?.replaceAll(' ', '_')}
                 style={{
                     width: '200px',
                     background: '#ffffff',
@@ -221,49 +220,111 @@ const COLUMNS = [
                 }}
                 place="top"
                 effect="float"
-                content={ele?.row?.original?.firstName}
+                content={ele?.row?.original?.username}
             />
         </>
-        // ele.value ? <img src={ele.value} alt='icon' className='w-11 h-11 rounded-full cursor-pointer mx-auto' /> :
-        //     <div className='rounded-full w-11 h-11 flex justify-center items-center cursor-pointer mx-auto'>
-        //         <span className='text-xl uppercase font-extrabold'>{ele?.row?.original?.firstName?.slice(0, 1)}</span>
-        //     </div>
     },
-    { "Header": "id", "Footer": "id", "accessor": "id" },
-    { "Header": "appNumber", "Footer": "appNumber", "accessor": "appNumber" },
-    { "Header": "appType", "Footer": "appType", "accessor": "appType" },
-    { "Header": "appDate", "Footer": "appDate", "accessor": "appDate" },
-    { "Header": "appPo", "Footer": "appPo", "accessor": "appPo" },
-    { "Header": "appSo", "Footer": "appSo", "accessor": "appSo" },
-    { "Header": "finalDecision", "Footer": "finalDecision", "accessor": "finalDecision" },
-    { "Header": "finalDecisionDate", "Footer": "finalDecisionDate", "accessor": "finalDecisionDate" },
-    { "Header": "appDob", "Footer": "appDob", "accessor": "appDob" },
-    { "Header": "destinationProvince", "Footer": "destinationProvince", "accessor": "destinationProvince" },
-    { "Header": "destinationCity", "Footer": "destinationCity", "accessor": "destinationCity" },
-    { "Header": "availableFunds", "Footer": "availableFunds", "accessor": "availableFunds" },
-    { "Header": "appSchool", "Footer": "appSchool", "accessor": "appSchool" },
-    { "Header": "levelOfStudy", "Footer": "levelOfStudy", "accessor": "levelOfStudy" },
-    { "Header": "fieldOfStudy", "Footer": "fieldOfStudy", "accessor": "fieldOfStudy" },
-    { "Header": "lengthOfStudy", "Footer": "lengthOfStudy", "accessor": "lengthOfStudy" },
-    { "Header": "appCitizenship", "Footer": "appCitizenship", "accessor": "appCitizenship" },
-    { "Header": "appResidence", "Footer": "appResidence", "accessor": "appResidence" },
-    { "Header": "canSpeakEnglish", "Footer": "canSpeakEnglish", "accessor": "canSpeakEnglish" },
-    { "Header": "canSpeakFrench", "Footer": "canSpeakFrench", "accessor": "canSpeakFrench" },
-    { "Header": "appCity", "Footer": "appCity", "accessor": "appCity" },
-    { "Header": "criminalityDate", "Footer": "criminalityDate", "accessor": "criminalityDate" },
-    { "Header": "biometricsDate", "Footer": "biometricsDate", "accessor": "biometricsDate" },
-    { "Header": "appGender", "Footer": "appGender", "accessor": "appGender" },
-    { "Header": "infoSharingDate", "Footer": "infoSharingDate", "accessor": "infoSharingDate" },
-    { "Header": "expensePaid", "Footer": "expensePaid", "accessor": "expensePaid" },
-    { "Header": "appStatus", "Footer": "appStatus", "accessor": "appStatus" },
+    {
+        "Header": "Application date",
+        "accessor": "appDate"
+    },
+    {
+        "Header": "citizenship",
+        "accessor": "appCitizenship"
+    },
+    {
+        "Header": "Criminality",
+        "accessor": "criminalityDate"
+    },
+    {
+        "Header": "Biometrics",
+        "accessor": "biometricsDate"
+    },
+    {
+        "Header": "Info sharing",
+        "accessor": "infoSharingDate"
+    },
+    {
+        "Header": "Status",
+        "accessor": "appStatus"
+    },
+    {
+        "Header": "Final decision date",
+        "accessor": "finalDecisionDate"
+    },
+    {
+        "Header": "Primary office",
+        "accessor": "appPo"
+    },
+    {
+        "Header": "Secondary office",
+        "accessor": "appSo"
+    },
+    {
+        "Header": "Final decision",
+        "accessor": "finalDecision"
+    },
+    {
+        "Header": "Destination province",
+        "accessor": "destinationProvince"
+    },
+    {
+        "Header": "Destination city",
+        "accessor": "destinationCity"
+    },
+    {
+        "Header": "School",
+        "accessor": "appSchool",
+        Cell: (ele) => {
+            return ele?.row?.original?.appSchool?.length > 18 ? `${ele?.row?.original?.appSchool?.slice(0, 15)}...` : `${ele?.row?.original?.appSchool}`
+        }
+    },
+    {
+        "Header": "Level of study",
+        "accessor": "levelOfStudy"
+    },
+    {
+        "Header": "Field of study",
+        "accessor": "fieldOfStudy"
+    },
+    {
+        "Header": "Length of study",
+        "accessor": "lengthOfStudy"
+    },
+    {
+        "Header": "Residence country",
+        "accessor": "appResidence"
+    },
+    {
+        "Header": "Knows English",
+        "accessor": "canSpeakEnglish",
+        Cell: (ele) => ele ? "Yes" : "No"
+    },
+    {
+        "Header": "Knows French",
+        "accessor": "canSpeakFrench",
+        Cell: (ele) => ele ? "Yes" : "No"
+    },
+    {
+        "Header": "Residence City",
+        "accessor": "appCity"
+    },
+    {
+        "Header": "Gender",
+        "accessor": "appGender"
+    },
+    {
+        "Header": "Age",
+        "accessor": "appAge"
+    },
 ]
 
 // for searching
 // const GlobalFilter = ({ filter, setFilter }) => {
 //     return (
 //         <span>
-//             Search:
-//             <input value={filter || ''} onChange={e => setFilter(e.target.value)} className='border rounded mr-8' />
+//             Global Search:
+//             <input value={filter || ''} onChange={e => setFilter(e.target.value)} />
 //         </span>
 //     )
 // }
@@ -285,13 +346,14 @@ export function DetailsTable({ DATA }) {
         gotoPage,
         pageCount,
         // setPageSize,
-        // setGlobalFilter,
+        setGlobalFilter,
         state } = useTable({
             columns,
-            data
-        }, useSortBy, usePagination)
+            data,
+            initialState: { pageSize: 15 }
+        }, useGlobalFilter, useSortBy, usePagination)
 
-    const { pageIndex } = state
+    const { pageIndex, globalFilter } = state
 
 
 
@@ -338,7 +400,7 @@ export function DetailsTable({ DATA }) {
                             onClick: () => console.log(`/admin?userId=${row?.original?.id}`),
                         })} className="even:bg-[#81724D0D] border-t" key={r} >
                             {row.cells.map((cell, c) => (
-                                <td {...cell.getCellProps()} className="border-b p-4 whitespace-nowrap" key={c}>
+                                <td {...cell.getCellProps()} className="border-b px-4 py-2.5 whitespace-nowrap" key={c}>
                                     {cell.render('Cell')}
                                 </td>
                             ))}
@@ -369,6 +431,7 @@ export function DetailsTable({ DATA }) {
         </div>
     </>)
 }
+
 
 
 
