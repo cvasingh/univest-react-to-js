@@ -229,12 +229,15 @@ const COLUMNS = [
         "accessor": "appDate"
     },
     {
-        "Header": "citizenship",
+        "Header": "Citizenship",
         "accessor": "appCitizenship"
     },
     {
         "Header": "Criminality",
-        "accessor": "criminalityDate"
+        "accessor": "criminalityDate",
+        Cell: (ele) => {
+            return moment(ele?.row?.original?.criminalityDate).isValid() ? moment(ele?.row?.original?.criminalityDate).format('DD-MM-YYYY') : "--"
+        }
     },
     {
         "Header": "Biometrics",
