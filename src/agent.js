@@ -15,6 +15,7 @@ export default function MainComponent() {
         <Router>
             <Routes>
                 <Route path="/timelines/agent/:userId" element={<User />} />
+                <Route path="*" element={<>agent</>} />
             </Routes>
         </Router>
     )
