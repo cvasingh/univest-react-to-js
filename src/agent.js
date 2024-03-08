@@ -15,6 +15,7 @@ export default function MainComponent() {
         <Router>
             <Routes>
                 <Route path=":userId" element={<User />} />
+                <Route path="/agent-test/:userId" element={<User />} />
             </Routes>
         </Router>
     )
