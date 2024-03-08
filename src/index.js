@@ -1,10 +1,10 @@
 
 import { createRoot } from 'react-dom/client';
-import MainComponent from './study-permit';
+import MainComponent from './agent';
 
 
 // Render your React component instead
-const root = createRoot(document.getElementById('gcms-timelines'));
+const root = createRoot(document.getElementById('root'));
 
 function AppWithCallbackAfterRender() {
 

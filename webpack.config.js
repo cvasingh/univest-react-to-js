@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         "gcms": './src/gcms.js',
         "study-permit": './src/study-permit.js',
+        "agent": './src/agent.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
