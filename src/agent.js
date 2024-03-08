@@ -14,8 +14,7 @@ export default function MainComponent() {
     return (
         <Router>
             <Routes>
-                <Route path="/timelines/agent/:userId" element={<User />} />
-                <Route path="*" element={<>agent</>} />
+                <Route path=":userId" element={<User />} />
             </Routes>
         </Router>
     )
