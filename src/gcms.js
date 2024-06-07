@@ -32,7 +32,7 @@ export default function MainComponent() {
     const [copied, setCopied] = useState(false)
     const [shareOpt, setShareOpt] = useState(false)
     const [select, setSelect] = useState({
-        date: 'Last_3_months',
+        date: 'Year_to_date',
         country: '',
         fileType: '',
         applicationType: ''
@@ -77,7 +77,7 @@ export default function MainComponent() {
                 </div>
 
                 <div className={`${mF ? 'flex z-[10001]' : 'hidden'} flex-col lg:flex lg:flex-row  gap-4 absolute top-4 rounded-xl shadow-2xl lg:shadow-none lg:static bg-white lg:bg-transparent p-3 lg:p-0 border lg:border-0`}>
-                    <select defaultValue={'Last_3_months'}
+                    <select defaultValue={'Year_to_date'}
                         onChange={(e) => setSelect(pre => ({ ...pre, date: e.target.value }))}
                         id="date" className='select-box'>
                         {[
