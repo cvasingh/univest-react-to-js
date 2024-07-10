@@ -6,6 +6,7 @@ module.exports = {
         "gcms": './src/gcms.js',
         "study-permit": './src/study-permit.js',
         "agent": './src/agent.js',
+        "pal": './src/pal.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

@@ -1,6 +1,6 @@
 
 import { createRoot } from 'react-dom/client';
-import MainComponent from './agent';
+import MainComponent from './pal';
 
 
 // Render your React component instead
