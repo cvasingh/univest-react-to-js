@@ -2,17 +2,21 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.js', // Path to your component
+    entry: {
+        "gcms": './src/gcms.js',
+        "study-permit": './src/study-permit.js',
+        "agent": './src/agent.js',
+    },
     output: {
-        path: path.resolve('dist'),
-        filename: 'ApplicationTracker.js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].js',
         libraryTarget: 'umd',
         globalObject: 'this',
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx|ts|tsx)$/, 
+                test: /\.(js|jsx|ts|tsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
