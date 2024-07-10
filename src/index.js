@@ -1,6 +1,6 @@
 
 import { createRoot } from 'react-dom/client';
-import MainComponent from './pal';
+import MainComponent from './study-permit';
 
 
 // Render your React component instead

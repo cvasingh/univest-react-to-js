@@ -38,7 +38,7 @@ export default function MainComponent() {
                     name="programType"
                     value={formData.programType}
                     onChange={handleChange}
-                    className="h-10 block w-full mt-1 border shodow border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required
                 >
                     <option value="" className="gf_placeholder">Please select</option>
@@ -64,7 +64,7 @@ export default function MainComponent() {
                     name="studyPermitExtension"
                     value={formData.studyPermitExtension}
                     onChange={handleChange}
-                    className="h-10 block w-full mt-1 border shodow border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required
                 >
                     <option value="" className="gf_placeholder">Please select</option>
@@ -82,7 +82,7 @@ export default function MainComponent() {
                     name="visitingStudent"
                     value={formData.visitingStudent}
                     onChange={handleChange}
-                    className="h-10 block w-full mt-1 border shodow border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required
                 >
                     <option value="" className="gf_placeholder">Please select</option>
@@ -101,7 +101,7 @@ export default function MainComponent() {
                     name="workPermit"
                     value={formData.workPermit}
                     onChange={handleChange}
-                    className="h-10 block w-full mt-1 border shodow border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     disabled={formData.studyPermitExtension === '1'}
                     required
                 >
@@ -120,7 +120,7 @@ export default function MainComponent() {
                     name="prerequisiteCourse"
                     value={formData.prerequisiteCourse}
                     onChange={handleChange}
-                    className="h-10 block w-full mt-1 border shodow border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required
                 >
                     <option value="" className="gf_placeholder">Please select</option>
@@ -139,7 +139,7 @@ export default function MainComponent() {
                     name="residentPermit"
                     value={formData.residentPermit}
                     onChange={handleChange}
-                    className="h-10 block w-full mt-1 border shodow border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required
                 >
                     <option value="" className="gf_placeholder">Please select</option>
@@ -157,7 +157,7 @@ export default function MainComponent() {
                     name="familyMember"
                     value={formData.familyMember}
                     onChange={handleChange}
-                    className="h-10 block w-full mt-1 border shodow border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     required
                 >
                     <option value="" className="gf_placeholder">Please select</option>
@@ -174,7 +174,7 @@ export default function MainComponent() {
                 </label>
                 <input
                     type="text"
-                    className="h-10 block w-full mt-1 border shodow border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     readOnly
                     value={result}
                 />
