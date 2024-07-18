@@ -443,6 +443,6 @@ export default function MainComponent() {
     )
 }
 
-// window.addEventListener('load', () => {
-//     ReactDOM.render(<MainComponent />, document.getElementById('study-permit'));
-// });
+window.addEventListener('load', () => {
+    ReactDOM.render(<MainComponent />, document.getElementById('study-permit'));
+});
