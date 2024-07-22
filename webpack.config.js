@@ -3,10 +3,11 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        "gcms": './src/gcms.js',
-        "study-permit": './src/study-permit.js',
-        "agent": './src/agent.js',
-        "pal": './src/pal.js',
+        // "gcms": './src/gcms.js',
+        // "study-permit": './src/study-permit.js',
+        // "agent": './src/agent.js',
+        // "pal": './src/pal.js',
+        "home": './src/home.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
