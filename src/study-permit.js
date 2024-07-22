@@ -1,442 +1,447 @@
-// MyComponent.js
-import ReactDOM from 'react-dom';
-
-"use client"
 import React, { useState } from 'react'
-import 'react-tooltip/dist/react-tooltip.css'
+import ReactDOM from 'react-dom';
 import './output.css';
 import './input.css';
 import './index.css';
-import { useTable, useGlobalFilter, useSortBy, usePagination } from 'react-table'
-import { AiOutlineArrowLeft, AiOutlineInfoCircle, AiOutlineShareAlt } from 'react-icons/ai';
-import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 
-import axios from 'axios';
-import moment from 'moment';
-import { MdCopyAll, MdFirstPage, MdLastPage } from 'react-icons/md';
-import copy from 'copy-to-clipboard';
-import { FaWhatsapp, FaCode, FaAngleDown, FaSortUp, FaSortDown, FaSort } from 'react-icons/fa';
-import { RxCross1 } from "react-icons/rx";
-import { useMemo } from 'react';
-import { Tooltip } from 'react-tooltip';
-import { useEffect } from 'react';
-
-
-let url = 'https://nextmigrant.com/timelines/study-permit/';
-let iframe = `<iframe allowtransparency="true" allowfullscreen="true" src="${url}?nocontent=true" frameborder="0" style="min-width:100%; max-width:100%; height:800px; border:none; background:#FFF"> </iframe>`
-const params = new URLSearchParams(window.location.search)
 export default function MainComponent() {
-    const [date, setDate] = useState(moment().subtract(25, 'minute'))
-    const [data, setData] = useState([])
-    const [loading, setLoading] = useState(!true)
-    const [mF, setMF] = useState(false)
-    const [embedCode, setEmbedCode] = useState(false)
-    const [copied, setCopied] = useState(false)
-    const [shareOpt, setShareOpt] = useState(false)
-    const [select, setSelect] = useState({
-        date: 'Last_3_months',
-        country: '',
-        fileType: '',
-        applicationType: ''
+    const [formData, setFormData] = useState({
+        countryOfResidence: '',
+        studentDirectStream: '',
+        program: '',
+        highestEducation: '',
+        englishTest: '',
+        ieltsScore: '',
+        pteScore: '',
+        email: '',
     });
 
-    useEffect(() => {
-        setMF(false)
-        setLoading(true)
-        axios.get(`https://api.nextmigrant.com/document-ai/get-application-timelines`)
-            .then(res => {
-                setData(res.data)
-                setTimeout(() => setLoading(false), 500)
-            })
-    }, [])
+    const [result, setResult] = useState('');
 
-    // useEffect(() => {
-    //     if (params.get('nocontent')) {
-    //         while (document.getElementById('nocontent')) {
-    //             var element = document.getElementById('nocontent');
-    //             element.parentNode.removeChild(element);
-    //         }
-    //     } else {
-    //         document.body.id = 'body-style'
-    //     }
-    // })
-    // useEffect(() => {
-    //     if (shareOpt || mF || embedCode) {
-    //         document.body.style.overflow = 'hidden'
-    //     } else {
-    //         document.body.style.overflow = 'unset'
-    //     }
-    // }, [shareOpt, mF, embedCode])
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
-
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Calculations for the form points (assuming example logic)
+        let total = 0;
+        if (formData.program) total += Number(formData.program);
+        if (formData.highestEducation) total += Number(formData.highestEducation);
+        if (formData.englishTest) total += Number(formData.englishTest);
+        if (formData.ieltsScore) total += Number(formData.ieltsScore);
+        if (formData.pteScore) total += Number(formData.pteScore);
+        setResult(total);
+    };
     return (
-        <div className='bg-'>
-            <div className='flex items-center px-4 lg:px-8 mt-10 relative'>
-                <div className='text-sm px-3 py-0.5 rounded-md shadow border flex items-center lg:hidden'
-                    onClick={() => setMF(pre => !pre)}>Filters <FaAngleDown className='ml-1' />
+        <div className="container mx-auto p-4">
+            <form onSubmit={handleSubmit}>
+                <div className="space-y-2 mb-6">
+                    <label className="block text-sm font-medium text-gray-700">
+                        What is your country of residence? <span className="text-red-500">(Required)</span>
+                    </label>
+                    <select
+                        name="countryOfResidence"
+                        value={formData.countryOfResidence}
+                        onChange={handleChange}
+                        className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        required
+                    >
+                        <option value="" className="gf_placeholder">Please select</option>
+                        {/* Options */}
+                        <option value="-8">Afghanistan</option>
+                        <option value="Albania">Albania</option>
+                        <option value="Algeria">Algeria</option>
+                        <option value="American Samoa">American Samoa</option>
+                        <option value="Andorra">Andorra</option>
+                        <option value="Angola">Angola</option>
+                        <option value="Anguilla">Anguilla</option>
+                        <option value="Antarctica">Antarctica</option>
+                        <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                        <option value="Argentina">Argentina</option>
+                        <option value="Armenia">Armenia</option>
+                        <option value="Aruba">Aruba</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Austria">Austria</option>
+                        <option value="Azerbaijan">Azerbaijan</option>
+                        <option value="Bahamas">Bahamas</option>
+                        <option value="Bahrain">Bahrain</option>
+                        <option value="-3">Bangladesh</option>
+                        <option value="Barbados">Barbados</option>
+                        <option value="Belarus">Belarus</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Belize">Belize</option>
+                        <option value="Benin">Benin</option>
+                        <option value="Bermuda">Bermuda</option>
+                        <option value="-3">Bhutan</option>
+                        <option value="Bolivia">Bolivia</option>
+                        <option value="Bonaire, Sint Eustatius and Saba">Bonaire, Sint Eustatius and Saba</option>
+                        <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                        <option value="Botswana">Botswana</option>
+                        <option value="Bouvet Island">Bouvet Island</option>
+                        <option value="-3">Brazil</option>
+                        <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                        <option value="Brunei Darussalam">Brunei Darussalam</option>
+                        <option value="Bulgaria">Bulgaria</option>
+                        <option value="Burkina Faso">Burkina Faso</option>
+                        <option value="Burundi">Burundi</option>
+                        <option value="Cabo Verde">Cabo Verde</option>
+                        <option value="-3">Cambodia</option>
+                        <option value="Cameroon">Cameroon</option>
+                        <option value="0">Canada</option>
+                        <option value="Cayman Islands">Cayman Islands</option>
+                        <option value="Central African Republic">Central African Republic</option>
+                        <option value="Chad">Chad</option>
+                        <option value="Chile">Chile</option>
+                        <option value="-1">China</option>
+                        <option value="Christmas Island">Christmas Island</option>
+                        <option value="Cocos Islands">Cocos Islands</option>
+                        <option value="Colombia">Colombia</option>
+                        <option value="Comoros">Comoros</option>
+                        <option value="-6">Congo</option>
+                        <option value="Congo, Democratic Republic of the">Congo, Democratic Republic of the</option>
+                        <option value="Cook Islands">Cook Islands</option>
+                        <option value="Costa Rica">Costa Rica</option>
+                        <option value="Croatia">Croatia</option>
+                        <option value="Cuba">Cuba</option>
+                        <option value="Curaçao">Curaçao</option>
+                        <option value="Cyprus">Cyprus</option>
+                        <option value="Czechia">Czechia</option>
+                        <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                        <option value="Denmark">Denmark</option>
+                        <option value="Djibouti">Djibouti</option>
+                        <option value="Dominica">Dominica</option>
+                        <option value="Dominican Republic">Dominican Republic</option>
+                        <option value="Ecuador">Ecuador</option>
+                        <option value="-5">Egypt</option>
+                        <option value="El Salvador">El Salvador</option>
+                        <option value="Equatorial Guinea">Equatorial Guinea</option>
+                        <option value="-8">Eritrea</option>
+                        <option value="Estonia">Estonia</option>
+                        <option value="Eswatini">Eswatini</option>
+                        <option value="-6">Ethiopia</option>
+                        <option value="Falkland Islands">Falkland Islands</option>
+                        <option value="Faroe Islands">Faroe Islands</option>
+                        <option value="Fiji">Fiji</option>
+                        <option value="Finland">Finland</option>
+                        <option value="France">France</option>
+                        <option value="French Guiana">French Guiana</option>
+                        <option value="French Polynesia">French Polynesia</option>
+                        <option value="French Southern Territories">French Southern Territories</option>
+                        <option value="Gabon">Gabon</option>
+                        <option value="-6">Gambia</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="-6">Ghana</option>
+                        <option value="Gibraltar">Gibraltar</option>
+                        <option value="Greece">Greece</option>
+                        <option value="Greenland">Greenland</option>
+                        <option value="Grenada">Grenada</option>
+                        <option value="Guadeloupe">Guadeloupe</option>
+                        <option value="Guam">Guam</option>
+                        <option value="Guatemala">Guatemala</option>
+                        <option value="Guernsey">Guernsey</option>
+                        <option value="-7">Guinea</option>
+                        <option value="Guinea-Bissau">Guinea-Bissau</option>
+                        <option value="Guyana">Guyana</option>
+                        <option value="-6">Haiti</option>
+                        <option value="Heard Island and McDonald Islands">Heard Island and McDonald Islands</option>
+                        <option value="Holy See">Holy See</option>
+                        <option value="Honduras">Honduras</option>
+                        <option value="-1">Hong Kong</option>
+                        <option value="Hungary">Hungary</option>
+                        <option value="Iceland">Iceland</option>
+                        <option value="-3">India</option>
+                        <option value="-2">Indonesia</option>
+                        <option value="-7">Iran</option>
+                        <option value="-9">Iraq</option>
+                        <option value="Ireland">Ireland</option>
+                        <option value="Isle of Man">Isle of Man</option>
+                        <option value="Israel">Israel</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Jamaica">Jamaica</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Jersey">Jersey</option>
+                        <option value="Jordan">Jordan</option>
+                        <option value="-6">Kazakhstan</option>
+                        <option value="-6">Kenya</option>
+                        <option value="Kiribati">Kiribati</option>
+                        <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+                        <option value="-9">Korea, Republic of</option>
+                        <option value="-4">Kuwait</option>
+                        <option value="Kyrgyzstan">Kyrgyzstan</option>
+                        <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                        <option value="Latvia">Latvia</option>
+                        <option value="-7">Lebanon</option>
+                        <option value="Lesotho">Lesotho</option>
+                        <option value="Liberia">Liberia</option>
+                        <option value="-8">Libya</option>
+                        <option value="Liechtenstein">Liechtenstein</option>
+                        <option value="Lithuania">Lithuania</option>
+                        <option value="Luxembourg">Luxembourg</option>
+                        <option value="Macao">Macao</option>
+                        <option value="Madagascar">Madagascar</option>
+                        <option value="Malawi">Malawi</option>
+                        <option value="Malaysia">Malaysia</option>
+                        <option value="Maldives">Maldives</option>
+                        <option value="-8">Mali</option>
+                        <option value="Malta">Malta</option>
+                        <option value="Marshall Islands">Marshall Islands</option>
+                        <option value="Martinique">Martinique</option>
+                        <option value="Mauritania">Mauritania</option>
+                        <option value="Mauritius">Mauritius</option>
+                        <option value="Mayotte">Mayotte</option>
+                        <option value="-1">Mexico</option>
+                        <option value="Micronesia">Micronesia</option>
+                        <option value="Moldova">Moldova</option>
+                        <option value="Monaco">Monaco</option>
+                        <option value="Mongolia">Mongolia</option>
+                        <option value="Montenegro">Montenegro</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Morocco">Morocco</option>
+                        <option value="-6">Mozambique</option>
+                        <option value="-6">Myanmar</option>
+                        <option value="-6">Namibia</option>
+                        <option value="Nauru">Nauru</option>
+                        <option value="-6">Nepal</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="New Caledonia">New Caledonia</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="Nicaragua">Nicaragua</option>
+                        <option value="-8">Niger</option>
+                        <option value="-5">Nigeria</option>
+                        <option value="Niue">Niue</option>
+                        <option value="Norfolk Island">Norfolk Island</option>
+                        <option value="North Macedonia">North Macedonia</option>
+                        <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Oman">Oman</option>
+                        <option value="-7">Pakistan</option>
+                        <option value="Palau">Palau</option>
+                        <option value="-6">Palestine, State of</option>
+                        <option value="Panama">Panama</option>
+                        <option value="Papua New Guinea">Papua New Guinea</option>
+                        <option value="Paraguay">Paraguay</option>
+                        <option value="Peru">Peru</option>
+                        <option value="-4">Philippines</option>
+                        <option value="Pitcairn">Pitcairn</option>
+                        <option value="Poland">Poland</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Puerto Rico">Puerto Rico</option>
+                        <option value="Qatar">Qatar</option>
+                        <option value="Romania">Romania</option>
+                        <option value="Russian Federation">Russian Federation</option>
+                        <option value="-5">Rwanda</option>
+                        <option value="Réunion">Réunion</option>
+                        <option value="Saint Barthélemy">Saint Barthélemy</option>
+                        <option value="Saint Helena, Ascension and Tristan da Cunha">Saint Helena, Ascension and Tristan da Cunha</option>
+                        <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                        <option value="Saint Lucia">Saint Lucia</option>
+                        <option value="Saint Martin">Saint Martin</option>
+                        <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+                        <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+                        <option value="Samoa">Samoa</option>
+                        <option value="San Marino">San Marino</option>
+                        <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                        <option value="Saudi Arabia">Saudi Arabia</option>
+                        <option value="Senegal">Senegal</option>
+                        <option value="Serbia">Serbia</option>
+                        <option value="Seychelles">Seychelles</option>
+                        <option value="Sierra Leone">Sierra Leone</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="Sint Maarten">Sint Maarten</option>
+                        <option value="Slovakia">Slovakia</option>
+                        <option value="Slovenia">Slovenia</option>
+                        <option value="Solomon Islands">Solomon Islands</option>
+                        <option value="-7">Somalia</option>
+                        <option value="South Africa">South Africa</option>
+                        <option value="South Georgia and the South Sandwich Islands">South Georgia and the South Sandwich Islands</option>
+                        <option value="-8">South Sudan</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Sri Lanka">Sri Lanka</option>
+                        <option value="Sudan">Sudan</option>
+                        <option value="-7">Suriname</option>
+                        <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="Syria Arab Republic">Syria Arab Republic</option>
+                        <option value="Taiwan">Taiwan</option>
+                        <option value="Tajikistan">Tajikistan</option>
+                        <option value="Tanzania, the United Republic of">Tanzania, the United Republic of</option>
+                        <option value="-4">Thailand</option>
+                        <option value="Timor-Leste">Timor-Leste</option>
+                        <option value="Togo">Togo</option>
+                        <option value="Tokelau">Tokelau</option>
+                        <option value="Tonga">Tonga</option>
+                        <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                        <option value="Tunisia">Tunisia</option>
+                        <option value="Turkmenistan">Turkmenistan</option>
+                        <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+                        <option value="Tuvalu">Tuvalu</option>
+                        <option value="Türkiye">Türkiye</option>
+                        <option value="US Minor Outlying Islands">US Minor Outlying Islands</option>
+                        <option value="Uganda">Uganda</option>
+                        <option value="Ukraine">Ukraine</option>
+                        <option value="United Arab Emirates">United Arab Emirates</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States">United States</option>
+                        <option value="Uruguay">Uruguay</option>
+                        <option value="Uzbekistan">Uzbekistan</option>
+                        <option value="Vanuatu">Vanuatu</option>
+                        <option value="-5">Venezuela</option>
+                        <option value="-5">Vietnam</option>
+                        <option value="Virgin Islands, British">Virgin Islands, British</option>
+                        <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+                        <option value="Wallis and Futuna">Wallis and Futuna</option>
+                        <option value="Western Sahara">Western Sahara</option>
+                        <option value="Yemen">Yemen</option>
+                        <option value="-6">Zambia</option>
+                        <option value="-6">Zimbabwe</option>
+                        <option value="Åland Islands">Åland Islands</option>
+                    </select>
                 </div>
 
-                <div className={`${mF ? 'flex z-[10001]' : 'hidden'} flex-col lg:flex lg:flex-row  gap-4 absolute top-4 rounded-xl shadow-2xl lg:shadow-none lg:static bg-white lg:bg-transparent p-3 lg:p-0 border lg:border-0`}>
-                    <select defaultValue={''}
-                        onChange={(e) => setSelect(pre => ({ ...pre, date: e.target.value }))}
-                        id="date" className='select-box'>
-                        {[
-                            { value: '', label: 'Filters' },
-                        ]?.map(ele =>
-                            <option key={ele.value} value={ele.value}>{ele.label}</option>
-                        )}
+                <div className="space-y-2 mb-6">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Will you be applying under the Student Direct Stream (SDS)? <span className="text-red-500">(Required)</span>
+                    </label>
+                    <select
+                        name="studentDirectStream"
+                        value={formData.studentDirectStream}
+                        onChange={handleChange}
+                        className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        required
+                    >
+                        <option value="" className="gf_placeholder">Please select</option>
+                        <option value="0">Yes</option>
+                        <option value="-10">No</option>
                     </select>
-
-                    <select defaultValue=''
-                        onChange={(e) => setSelect(pre => ({ ...pre, country: e.target.value }))}
-                        id="countries" className='select-box'>
-                        {[
-                            { value: '', label: "Analyse" },
-                        ]?.map(ele =>
-                            <option key={ele.value} value={ele.value}>{ele.label}</option>
-                        )}
-                    </select>
-
                 </div>
 
-                <div className='flex flex-col lg:flex-row lg:items-center items-end gap-2 lg:gap-4 ml-auto'>
-                    <div className="text-xs lg:text-base font-medium text-[#13231A99] text-right" >
-                        Last updated:  {moment(date).fromNow()}<br className='flex lg:hidden' /> <span className="text-[#0462FE]"
-                            onClick={() => {
-                                setDate(moment())
-                                setLoading(true)
-                                setTimeout(() => setLoading(false), 500)
-                            }}> Refresh data  </span>
+                <div className="space-y-2 mb-6">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Which program are you applying for? <span className="text-red-500">(Required)</span>
+                    </label>
+                    <select
+                        name="program"
+                        value={formData.program}
+                        onChange={handleChange}
+                        className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        required
+                    >
+                        <option value="" className="gf_placeholder">Please select</option>
+                        <option value="1">Certificate</option>
+                        <option value="1">Diploma</option>
+                        <option value="1">Advanced Diploma</option>
+                        <option value="2">Bachelors</option>
+                        <option value="3">Graduate Certificate</option>
+                        <option value="3">Masters</option>
+                        <option value="4">PhD</option>
+                    </select>
+                </div>
+
+                <div className="space-y-2 mb-6">
+                    <label className="block text-sm font-medium text-gray-700">
+                        What will be your highest education at the time of your application? <span className="text-red-500">(Required)</span>
+                    </label>
+                    <select
+                        name="highestEducation"
+                        value={formData.highestEducation}
+                        onChange={handleChange}
+                        className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        required
+                    >
+                        <option value="" className="gf_placeholder">Please select</option>
+                        <option value="0">Grade 12</option>
+                        <option value="1">Diploma</option>
+                        <option value="2">Bachelors</option>
+                        <option value="3">Masters</option>
+                        <option value="4">PhD</option>
+                    </select>
+                </div>
+
+                <div className="space-y-2 mb-6">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Which English assessment test did you appear for? <span className="text-red-500">(Required)</span>
+                    </label>
+                    <select
+                        name="englishTest"
+                        value={formData.englishTest}
+                        onChange={handleChange}
+                        className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        required
+                    >
+                        <option value="" className="gf_placeholder">Please select</option>
+                        <option value="0">IELTS</option>
+                        <option value="-2">PTE</option>
+                        <option value="-4">Other</option>
+                    </select>
+                </div>
+
+                <div className={`space-y-2 overflow-hidden transition-all ${formData.englishTest === '0' ? 'max-h-20 mb-6' : 'max-h-0 mb-0'}`}>
+                    <label className="block text-sm font-medium text-gray-700">
+                        What is your overall IELTS score? <span className="text-red-500">(Required)</span>
+                    </label>
+                    <select
+                        name="ieltsScore"
+                        value={formData.ieltsScore}
+                        onChange={handleChange}
+                        className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        required
+                    >
+                        <option value="" className="gf_placeholder">Please select your IELTS score</option>
+                        <option value="0">9</option>
+                        <option value="-1">8</option>
+                        <option value="-4">7</option>
+                        <option value="-7">6</option>
+                        <option value="-20">5</option>
+                        <option value="-25">4</option>
+                        <option value="-30">3</option>
+                        <option value="-35">2</option>
+                        <option value="-38">1</option>
+                    </select>
+                </div>
+
+                <div className={`space-y-2 overflow-hidden transition-all ${formData.englishTest === '-2' ? 'max-h-20 mb-6' : 'max-h-0 mb-0'}`}>
+                    <label className="block text-sm font-medium text-gray-700">
+                        What is your overall PTE score? <span className="text-red-500">(Required)</span>
+                    </label>
+                    <select
+                        name="pteScore"
+                        value={formData.pteScore}
+                        onChange={handleChange}
+                        className="h-10 block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                        required
+                    >
+                        <option value="" className="gf_placeholder">Please select your PTE score</option>
+                        <option value="0">85-90</option>
+                        <option value="-2">76-84</option>
+                        <option value="-5">59-75</option>
+                        <option value="-7">43-58</option>
+                        <option value="-10">30-42</option>
+                        <option value="-10">10-29</option>
+                    </select>
+                </div>
+
+                <div className="space-y-2 mb-6">
+                    <button
+                        type="submit"
+                        className="px-10 py-3 font-medium text-white bg-[#0462FE] rounded-full hover:bg-[#0464fee0] focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    >
+                        Submit
+                    </button>
+                </div>
+
+                {result && (
+                    <div className="space-y-2 mb-6">
+                        <p className="text-sm font-medium text-gray-700">Total Value: {result}</p>
                     </div>
-
-                    {<div className={`hidden lg:flex items-center border rounded-lg px-4 py-1.5 cursor-pointer bg-[#0462FE] text-white relative`}
-                        onClick={() => setShareOpt(pre => !pre)}>
-                        <span className="text-base font-medium " >
-                            Share
-                        </span>
-                        <AiOutlineShareAlt className='ml-2' size={20} color={'#ffffff'} />
-                        <div className={`flex-col gap-5 absolute bg-white top-6 right-6 md:right-10 w-72 md:w-80 p-4 rounded-lg shadow-lg z-[10001] border
-                        ${shareOpt ? "flex" : "hidden"}`}>
-                            <div className='flex items-center justify-between text-sm font-bold text-black'>
-                                <div>Share</div>
-                                <RxCross1 className='mr-2 cursor-pointer' color='#202020' onClick={(e) => {
-                                    setShareOpt(false)
-                                    e.stopPropagation()
-                                }} />
-                            </div>
-                            {/* <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
-                                <span className=' text-xs md:text-sm font-medium text-black'>Embed</span>
-                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D' onClick={() => copy(`<div id="gcms-timelines"></div><script type="text/javascript" src="${url}.js"></script>`)} />
-                            </div> */}
-                            <a href={`https://api.whatsapp.com/send?text=Check out the latest GCMS notes processing times: \n${url}`} target='_blank'>
-                                <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'>
-                                    <span className=' text-xs md:text-sm font-medium text-black'>Share on Whatsapp</span>
-                                    <FaWhatsapp className='ml-auto cursor-pointer' size={20} color='#81724D' />
-                                </div>
-                            </a>
-                            <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'
-                                onClick={(e) => {
-                                    copy(url)
-                                    setCopied(true)
-                                    setTimeout(() => setCopied(false), 2000)
-                                    e.stopPropagation()
-                                }}>
-                                <span className=' text-xs md:text-sm font-medium text-black'>{copied ? 'Copied!' : 'Copy link'}</span>
-                                <MdCopyAll className='ml-auto cursor-pointer' size={20} color='#81724D' />
-                            </div>
-                            <div className='flex justify-between items-center border border-[#E5E7EB] p-3 rounded-md'
-                                onClick={() => setEmbedCode(true)}>
-                                <span className=' text-xs md:text-sm font-medium text-black'>Embed code</span>
-                                <FaCode className='ml-auto cursor-pointer' size={20} color='#81724D' />
-                            </div>
-                        </div>
-                    </div>}
-                    {embedCode &&
-                        <div className='fixed z-[10001] w-11/12 lg:w-[600px] h-auto m-auto inset-x-0 top-1/3 p-4 bg-white border rounded-lg shadow-2xl px-8 py-6'>
-                            <div className='flex items-center justify-between text-base font-bold text-black'>
-                                <div>Embed this on your website</div>
-                                <RxCross1 className='mr-2 cursor-pointer' color='#202020' onClick={(e) => {
-                                    setEmbedCode(false)
-                                    e.stopPropagation()
-                                }} />
-                            </div>
-                            <code className="block rounded-lg select-all" id='app_wizards'>
-                                {iframe}
-                            </code>
-                            <div className='w-[120px] mt-5 mx-auto shadow  border rounded-lg px-4 pt-[1px] pb-2 cursor-pointer bg-[#0462FE] text-white text-center'
-                                onClick={() => {
-                                    copy(iframe)
-                                    setCopied(true)
-                                    setTimeout(() => {
-                                        setCopied(false)
-                                        setEmbedCode(false)
-                                    }, 3000)
-                                }}>
-                                <span className=' text-xs md:text-sm font-medium'>{copied ? 'Copied!' : 'Copy'}</span>
-                            </div>
-                        </div>
-                    }
-
-
-                    {(shareOpt || mF || embedCode) && <div className="fixed top-0 bottom-0 left-0 right-0 z-[10000] bg-[#20202026] backdrop-blur-[1px]" onClick={() => {
-                        setShareOpt(false)
-                        setMF(false)
-                        setEmbedCode(false)
-                    }} />}
-
-                </div>
-            </div>
-
-            <hr className='hidden lg:block' style={{ margin: '1rem' }} />
-            {loading ?
-                <div className='h-screen w-full flex justify-center pt-20'><div className='loader h-10 w-10' /></div>
-                : <DetailsTable DATA={data} />}
+                )}
+            </form>
         </div>
     )
 }
-
-// set columns 
-const COLUMNS = [
-    {
-        "Header": "User",
-        "accessor": "username",
-        Cell: (ele) => <>
-            <span data-tooltip-id={ele?.row?.original?.username?.replaceAll(' ', '_')}>
-                {ele?.row?.original?.username?.slice(0, 5)}..
-            </span>
-            <Tooltip
-                id={ele?.row?.original?.username?.replaceAll(' ', '_')}
-                style={{
-                    width: '200px',
-                    background: '#ffffff',
-                    color: '#000',
-                    border: 'solid 1px #e5e7eb',
-                    backdropFilter: 'blur(8px)',
-                    maxWidth: '309px',
-                    fontSize: '1.1rem',
-                    borderRadius: '6px',
-                    boxShadow: '0 1px 3px 0 rgb(0 0 0 / 12%), 0 1px 2px 0 rgba(0, 0, 0, 0.08)'
-                }}
-                place="top"
-                effect="float"
-                content={ele?.row?.original?.username}
-            />
-        </>
-    },
-    {
-        "Header": "Application date",
-        "accessor": "appDate"
-    },
-    {
-        "Header": "Citizenship",
-        "accessor": "appCitizenship"
-    },
-    {
-        "Header": "Criminality",
-        "accessor": "criminalityDate",
-        Cell: (ele) => {
-            return moment(ele?.row?.original?.criminalityDate).isValid() ? moment(ele?.row?.original?.criminalityDate).format('DD-MM-YYYY') : "--"
-        }
-    },
-    {
-        "Header": "Biometrics",
-        "accessor": "biometricsDate"
-    },
-    {
-        "Header": "Info sharing",
-        "accessor": "infoSharingDate"
-    },
-    {
-        "Header": "Status",
-        "accessor": "appStatus"
-    },
-    {
-        "Header": "Final decision date",
-        "accessor": "finalDecisionDate"
-    },
-    {
-        "Header": "Primary office",
-        "accessor": "appPo"
-    },
-    {
-        "Header": "Secondary office",
-        "accessor": "appSo"
-    },
-    {
-        "Header": "Final decision",
-        "accessor": "finalDecision"
-    },
-    {
-        "Header": "Destination province",
-        "accessor": "destinationProvince"
-    },
-    {
-        "Header": "Destination city",
-        "accessor": "destinationCity"
-    },
-    {
-        "Header": "School",
-        "accessor": "appSchool",
-        Cell: (ele) => {
-            return ele?.row?.original?.appSchool?.length > 18 ? `${ele?.row?.original?.appSchool?.slice(0, 15)}...` : `${ele?.row?.original?.appSchool}`
-        }
-    },
-    {
-        "Header": "Level of study",
-        "accessor": "levelOfStudy"
-    },
-    {
-        "Header": "Field of study",
-        "accessor": "fieldOfStudy"
-    },
-    {
-        "Header": "Length of study",
-        "accessor": "lengthOfStudy"
-    },
-    {
-        "Header": "Residence country",
-        "accessor": "appResidence"
-    },
-    {
-        "Header": "Knows English",
-        "accessor": "canSpeakEnglish",
-        Cell: (ele) => ele ? "Yes" : "No"
-    },
-    {
-        "Header": "Knows French",
-        "accessor": "canSpeakFrench",
-        Cell: (ele) => ele ? "Yes" : "No"
-    },
-    {
-        "Header": "Residence City",
-        "accessor": "appCity"
-    },
-    {
-        "Header": "Gender",
-        "accessor": "appGender"
-    },
-    {
-        "Header": "Age",
-        "accessor": "appAge"
-    },
-]
-
-// for searching
-// const GlobalFilter = ({ filter, setFilter }) => {
-//     return (
-//         <span>
-//             Global Search:
-//             <input value={filter || ''} onChange={e => setFilter(e.target.value)} />
-//         </span>
-//     )
-// }
-
-export function DetailsTable({ DATA }) {
-    const columns = useMemo(() => COLUMNS, [])
-    const data = useMemo(() => DATA, []);
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        prepareRow,
-        page,
-        nextPage,
-        previousPage,
-        canNextPage,
-        canPreviousPage,
-        pageOptions,
-        gotoPage,
-        pageCount,
-        // setPageSize,
-        setGlobalFilter,
-        state } = useTable({
-            columns,
-            data,
-            initialState: { pageSize: 15 }
-        }, useGlobalFilter, useSortBy, usePagination)
-
-    const { pageIndex, globalFilter } = state
-
-
-
-    return (<>
-        {/* <div className="m-4 flex justify-between gap-2 items-center w-full" role="group" aria-label="Basic example">
-            <select value={pageSize} onChange={e => setPageSize(e.target.value)}>
-                {
-                    [10, 25, 50].map(pageSize => (
-                        <option key={pageSize} value={pageSize}>
-                            Show {pageSize}
-                        </option>
-                    ))
-                }
-            </select>
-            <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-        </div> */}
-        <div className='overflow-x-auto w-full'>
-            <table {...getTableProps()} className="table-auto w-full  mt-5">
-                <thead>
-                    {headerGroups.map((headerGroup, h) => (
-                        <tr {...headerGroup.getHeaderGroupProps()} key={h}>
-                            {headerGroup.headers.map((column, c) => (
-                                <th {...column.getHeaderProps(
-                                    [{ className: column.className },
-                                    column.getSortByToggleProps(),
-                                    ]
-                                )} className='border-y border-blue-100 bg-[#13231A0D] p-3 pr-6 relative whitespace-nowrap' key={c}>
-                                    {column.render('Header')}
-                                    <div className='absolute bottom-4 end-0.5'>
-                                        {column.isSorted ? (column.isSortedDesc ?
-                                            <FaSortUp /> :
-                                            <FaSortDown />) :
-                                            <FaSort />}
-                                    </div>
-                                </th>
-                            ))}
-                        </tr>
-                    ))}
-                </thead>
-                <tbody {...getTableBodyProps()} className="table-group-divider">
-                    {page.map((row, r) => {
-                        prepareRow(row)
-                        return <tr {...row.getRowProps({
-                            onClick: () => console.log(`/admin?userId=${row?.original?.id}`),
-                        })} className="even:bg-[#81724D0D] border-t" key={r} >
-                            {row.cells.map((cell, c) => (
-                                <td {...cell.getCellProps()} className="border-b px-4 py-2.5 whitespace-nowrap" key={c}>
-                                    {cell.render('Cell')}
-                                </td>
-                            ))}
-                        </tr>
-                    })}
-                </tbody>
-            </table>
-        </div>
-        <div className="mt-6 flex justify-center gap-2 items-center w-full" role="group" aria-label="Basic example">
-            <button className="btn btn-primary" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                <MdFirstPage />
-            </button>
-            <button className="btn btn-primary" onClick={() => previousPage()} disabled={!canPreviousPage}>
-                <IoIosArrowBack />
-            </button>
-            <span>
-                Page:{' '}
-                <strong>
-                    {pageIndex + 1} of {pageOptions.length}
-                </strong>{' '}
-            </span>
-            <button className="btn btn-primary" onClick={() => nextPage()} disabled={!canNextPage}>
-                <IoIosArrowForward />
-            </button>
-            <button className="btn btn-primary" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                <MdLastPage />
-            </button>
-        </div>
-    </>)
-}
-
-
-
 
 window.addEventListener('load', () => {
     ReactDOM.render(<MainComponent />, document.getElementById('study-permit'));
