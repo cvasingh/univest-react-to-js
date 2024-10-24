@@ -330,6 +330,91 @@ export default function Footer({}) {
     </footer>
   );
 }
+export function Header({ isDark = false }) {
+  return (
+    <section
+      id="Hero"
+      className=" overflow-hidden bg-gradient-to-b from-[#343434] to-[#343434]"
+    >
+      <div className=" w-full flex flex-row pt-[176px] pb-[120px] max-w-screen-xl mx-auto justify-between  items-center gap-20">
+        <div className="flex flex-col items-start gap-6">
+          <div className=" top-0 flex items-center justify-center">
+            <div
+              className={`text-white text-[36.198px] font-bold leading-[normal]  ${
+                !isDark ? "text-white" : "text-[#414141]"
+              }`}
+            >
+              Univest
+            </div>
+            <img
+              src="https://storage.googleapis.com/app-assets-univest/blogs/pro_light.png"
+              alt="icon"
+              className="w-[78px] object-contain ml-2"
+            />
+          </div>
+          <div className="  font-Inter basis-full md:basis-7/12 flex flex-col content-start relative">
+            <span
+              className={`text-[color:var(--Pearl-White,#FFF)]  text-5xl font-extrabold leading-[80px] ${
+                !isDark ? "text-white" : "text-[#414141]"
+              }`}
+            >
+              India’s trusted
+            </span>
+            <span
+              className={`text-[color:var(--Pearl-White,#FFF)]  text-5xl font-extrabold leading-[80px] ${
+                !isDark ? "text-white" : "text-[#414141]"
+              }`}
+            >
+              Stock market ideas
+            </span>
+          </div>
+
+          <a href="/user/log-in" className="w-full">
+            <button
+              className={`font-Inter relative w-full text-black text-center buy-button pt-4 hover:animate-none`}
+            >
+              <div className="absolute text-sm font-extrabold left-1/2 translate-y-1/3 -translate-x-1/2 whitespace-nowrap">
+                Activate FREE trial
+              </div>
+              <div className="buttont"></div>
+              <div className="buttonb"></div>
+            </button>
+          </a>
+        </div>
+        <div
+          className={`basis-full md:basis-5/12 flex content-center relative mt-6`}
+        >
+          <img
+            src="https://storage.googleapis.com/app-assets-univest/blogs/get_5_free_trades.gif"
+            alt="get_5_free_trades"
+            width={1266}
+            height={690}
+            className="w-full"
+          />
+        </div>
+      </div>
+      <div className="mt-8  lg:gap-16 [background:var(--Questionnaire-background-color,linear-gradient(127deg,#DDF6FF_-31.48%,#FFEAEF_95.46%))] px-4 py-2 lg:px-20 lg:py-4 flex whitespace-nowrap justify-center items-center">
+        <div className="flex items-center gap-2 lg:gap-4">
+          <p className="text-black text-sm font-medium leading-6  lg:text-[28px] lg:font-semibold lg:leading-[49px]">
+            Trusted by
+          </p>
+          <p className="text-black text-xl font-extrabold leading-8 lg:text-[40px] lg:font-extrabold lg:leading-[65.333px]">
+            40lakhs+ users
+          </p>
+        </div>
+        <img
+          className="w-[116px] h-[21px] lg:w-[260px] lg:h-[48px]"
+          src="https://storage.googleapis.com/app-assets-univest/blogs/rating.png"
+          alt="demo"
+        />
+      </div>
+    </section>
+  );
+}
+
+window?.addEventListener("load", () => {
+  ReactDOM.render(<Header />, document.getElementById("univest-top"));
+});
 
 window?.addEventListener("load", () => {
   ReactDOM.render(<Footer />, document.getElementById("univest-footer"));
