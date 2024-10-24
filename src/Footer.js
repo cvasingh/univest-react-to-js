@@ -17,7 +17,7 @@ export default function Footer({}) {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <img
-              src="https://univest.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp_download_qr.8386830e.png&w=3840&q=75"
+              src="https://storage.googleapis.com/app-assets-univest/blogs/logo.png"
               className="w-32 lg:w-40 object-contain"
               alt="icon"
             />
@@ -273,7 +273,7 @@ export default function Footer({}) {
               <ul className="space-y-3  text-xs lg:text-sm">
                 <li>
                   <img
-                    src="https://univest.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp_download_qr.8386830e.png&w=3840&q=75"
+                    src="https://storage.googleapis.com/app-assets-univest/blogs/app_download_qr.png"
                     className="w-36 p-2 rounded bg-white"
                     alt="download now qr"
                   />
@@ -290,11 +290,11 @@ export default function Footer({}) {
                     className="transition hover:opacity-75"
                   >
                     <img
-                      src="https://univest.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp_download_qr.8386830e.png&w=3840&q=75"
+                      src="https://storage.googleapis.com/app-assets-univest/blogs/app_store.png"
                       width={114}
                       height={24}
                       className="w-36 object-contain"
-                      alt="Google Play"
+                      alt="app store"
                     />
                   </a>
                 </li>
@@ -307,7 +307,7 @@ export default function Footer({}) {
                     className="transition hover:opacity-75"
                   >
                     <img
-                      src="https://univest.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp_download_qr.8386830e.png&w=3840&q=75"
+                      src="https://storage.googleapis.com/app-assets-univest/blogs/google_pay.png"
                       width={114}
                       height={24}
                       className="w-36 object-contain"
