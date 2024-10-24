@@ -1,9 +1,11 @@
-import logoWhite from "../../website-v2-nextjs/src/assets/Images/logo.png";
-import app_store from "../../website-v2-nextjs/src/assets/Images/app_store.png";
-import google_pay from "../../website-v2-nextjs/src/assets/Images/google_pay.png";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { BsInstagram, BsTelegram, BsTwitter, BsYoutube } from "react-icons/bs";
-import app_download_qr from "./app_download_qr.png";
+import ReactDOM from "react-dom";
+
+import React from "react";
+import "./output.css";
+import "./input.css";
+import "./index.css";
 
 export default function Footer({}) {
   return (
@@ -15,7 +17,7 @@ export default function Footer({}) {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
             <img
-              src={logoWhite}
+              src="https://univest.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp_download_qr.8386830e.png&w=3840&q=75"
               className="w-32 lg:w-40 object-contain"
               alt="icon"
             />
@@ -271,7 +273,7 @@ export default function Footer({}) {
               <ul className="space-y-3  text-xs lg:text-sm">
                 <li>
                   <img
-                    src={app_download_qr}
+                    src="https://univest.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp_download_qr.8386830e.png&w=3840&q=75"
                     className="w-36 p-2 rounded bg-white"
                     alt="download now qr"
                   />
@@ -288,7 +290,7 @@ export default function Footer({}) {
                     className="transition hover:opacity-75"
                   >
                     <img
-                      src={app_store}
+                      src="https://univest.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp_download_qr.8386830e.png&w=3840&q=75"
                       width={114}
                       height={24}
                       className="w-36 object-contain"
@@ -305,7 +307,7 @@ export default function Footer({}) {
                     className="transition hover:opacity-75"
                   >
                     <img
-                      src={google_pay}
+                      src="https://univest.in/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fapp_download_qr.8386830e.png&w=3840&q=75"
                       width={114}
                       height={24}
                       className="w-36 object-contain"
@@ -328,3 +330,7 @@ export default function Footer({}) {
     </footer>
   );
 }
+
+window?.addEventListener("load", () => {
+  ReactDOM.render(<Footer />, document.getElementById("root"));
+});
