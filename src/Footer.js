@@ -332,5 +332,5 @@ export default function Footer({}) {
 }
 
 window?.addEventListener("load", () => {
-  ReactDOM.render(<Footer />, document.getElementById("root"));
+  ReactDOM.render(<Footer />, document.getElementById("univest-footer"));
 });

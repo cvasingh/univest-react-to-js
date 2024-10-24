@@ -7,7 +7,7 @@ module.exports = {
     // "study-permit": './src/study-permit.js',
     // "agent": './src/agent.js',
     // "pal": './src/pal.js',
-    "": "./src/footer.js",
+    "univest-footer": "./src/footer.js",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
