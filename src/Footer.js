@@ -1,11 +1,9 @@
 import logoWhite from "../../website-v2-nextjs/src/assets/Images/logo.png";
 import app_store from "../../website-v2-nextjs/src/assets/Images/app_store.png";
 import google_pay from "../../website-v2-nextjs/src/assets/Images/google_pay.png";
-import Image from "next/image";
-import Link from "next/link";
 import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { BsInstagram, BsTelegram, BsTwitter, BsYoutube } from "react-icons/bs";
-import app_download_qr from "../../website-v2-nextjs/src/assets/Images/app_download_qr.png";
+import app_download_qr from "./app_download_qr.png";
 
 export default function Footer({}) {
   return (
@@ -16,7 +14,7 @@ export default function Footer({}) {
       <div className="max-w-screen-xl px-4 py-16 mx-auto space-y-6 sm:px-6 lg:space-y-8 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div>
-            <Image
+            <img
               src={logoWhite}
               className="w-32 lg:w-40 object-contain"
               alt="icon"
@@ -50,7 +48,7 @@ export default function Footer({}) {
             </div>
             <ul className="flex gap-6 mt-8">
               <li>
-                <Link
+                <a
                   href="https://www.facebook.com/Univest.in"
                   rel="noreferrer"
                   target="_blank"
@@ -60,11 +58,11 @@ export default function Footer({}) {
                   <div className="bg-[#337FFF] p-2 rounded-full">
                     <FaFacebookF color="#FFFFFF" size={16} />
                   </div>
-                </Link>
+                </a>
               </li>
 
               <li>
-                <Link
+                <a
                   href="https://linkedin.com/company/univest-in"
                   rel="noreferrer"
                   target="_blank"
@@ -74,11 +72,11 @@ export default function Footer({}) {
                   <div className="bg-[#006699] p-2 rounded-full">
                     <FaLinkedinIn color="#FFFFFF" size={16} />
                   </div>
-                </Link>
+                </a>
               </li>
 
               <li>
-                <Link
+                <a
                   href="https://www.instagram.com/univest.in/"
                   rel="noreferrer"
                   target="_blank"
@@ -88,11 +86,11 @@ export default function Footer({}) {
                   <div className="instabg p-2 rounded-full">
                     <BsInstagram color="#FFFFFF" size={16} />
                   </div>
-                </Link>
+                </a>
               </li>
 
               <li>
-                <Link
+                <a
                   href="https://twitter.com/UnivestIN"
                   rel="noreferrer"
                   target="_blank"
@@ -102,11 +100,11 @@ export default function Footer({}) {
                   <div className="bg-[#33CCFF] p-2 rounded-full">
                     <BsTwitter color="#FFFFFF" size={16} />
                   </div>
-                </Link>
+                </a>
               </li>
 
               <li>
-                <Link
+                <a
                   href="https://www.youtube.com/@Univest_In"
                   rel="noreferrer"
                   target="_blank"
@@ -116,11 +114,11 @@ export default function Footer({}) {
                   <div className="bg-[#FF0000] p-2 rounded-full">
                     <BsYoutube color="#FFFFFF" size={16} />
                   </div>
-                </Link>
+                </a>
               </li>
 
               <li>
-                <Link
+                <a
                   href="https://t.me/+U-FU7kyhBvZiNTI1"
                   rel="noreferrer"
                   target="_blank"
@@ -130,7 +128,7 @@ export default function Footer({}) {
                   <div className="bg-[#FFF] p-[-1px] rounded-full">
                     <BsTelegram color="#0088cc" size={33} />
                   </div>
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -142,51 +140,45 @@ export default function Footer({}) {
               <nav aria-label="Footer Navigation - PRODUCTS" className="mt-6">
                 <ul className="space-y-3  text-xs lg:text-smtext-sm">
                   <li className="cursor-pointer">
-                    <Link href="/pro" className="transition hover:opacity-75">
+                    <a href="/pro" className="transition hover:opacity-75">
                       Pro
-                    </Link>
+                    </a>
                   </li>
 
                   <li>
-                    <Link
-                      href="/stocks"
-                      className="transition hover:opacity-75"
-                    >
+                    <a href="/stocks" className="transition hover:opacity-75">
                       Stock markets
-                    </Link>
+                    </a>
                   </li>
 
                   {/* <li>
-                                            <Link href="/elite" className="transition hover:opacity-75">
+                                            <a href="/elite" className="transition hover:opacity-75">
                                                 Elite
-                                            </Link>
+                                            </a>
                                         </li> */}
 
                   <li>
-                    <Link
+                    <a
                       href="/screeners"
                       className="transition hover:opacity-75"
                     >
                       Screeners
-                    </Link>
+                    </a>
                   </li>
 
                   <li className="cursor-pointer">
-                    <Link
+                    <a
                       href="/shark-portfolios"
                       className="transition hover:opacity-75"
                     >
                       Shark stocks
-                    </Link>
+                    </a>
                   </li>
 
                   <li className="cursor-pointer">
-                    <Link
-                      href="/markets"
-                      className="transition hover:opacity-75"
-                    >
+                    <a href="/markets" className="transition hover:opacity-75">
                       Markets
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </nav>
@@ -198,58 +190,55 @@ export default function Footer({}) {
               <nav aria-label="Footer Navigation - Company" className="mt-6">
                 <ul className="space-y-3  text-xs lg:text-smtext-sm">
                   <li>
-                    <Link
-                      href="/about-us"
-                      className="transition hover:opacity-75"
-                    >
+                    <a href="/about-us" className="transition hover:opacity-75">
                       About us
-                    </Link>
+                    </a>
                   </li>
 
                   <li>
-                    <Link
+                    <a
                       href="/blogs/"
                       rel="noreferrer"
                       className="transition hover:opacity-75"
                     >
                       Blogs
-                    </Link>
+                    </a>
                   </li>
 
                   <li>
-                    <Link
+                    <a
                       href="/web-stories"
                       className="transition hover:opacity-75"
                     >
                       Web stories
-                    </Link>
+                    </a>
                   </li>
 
                   <li>
-                    <Link
+                    <a
                       href="https://stocks.univest.in/privacy-policy"
                       className="transition hover:opacity-75"
                     >
                       Privacy policy
-                    </Link>
+                    </a>
                   </li>
 
                   <li>
-                    <Link
+                    <a
                       href="https://stocks.univest.in/grievance-policy"
                       className="transition hover:opacity-75"
                     >
                       Grievance policy
-                    </Link>
+                    </a>
                   </li>
 
                   <li>
-                    <Link
+                    <a
                       href="https://stocks.univest.in/terms-and-conditions"
                       className="transition hover:opacity-75"
                     >
                       Terms & Conditions
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </nav>
@@ -261,15 +250,15 @@ export default function Footer({}) {
               <nav aria-label="Footer Navigation - SUPPORT" className="mt-6">
                 <ul className="space-y-3  text-xs lg:text-smtext-sm">
                   <li>
-                    <Link href="/faq" className="transition hover:opacity-75">
+                    <a href="/faq" className="transition hover:opacity-75">
                       FAQs
-                    </Link>
+                    </a>
                   </li>
 
                   <li>
-                    <Link href="#" className="transition hover:opacity-75">
+                    <a href="#" className="transition hover:opacity-75">
                       Contact us
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </nav>
@@ -281,7 +270,7 @@ export default function Footer({}) {
             >
               <ul className="space-y-3  text-xs lg:text-sm">
                 <li>
-                  <Image
+                  <img
                     src={app_download_qr}
                     className="w-36 p-2 rounded bg-white"
                     alt="download now qr"
@@ -292,37 +281,37 @@ export default function Footer({}) {
                 </li>
 
                 <li>
-                  <Link
+                  <a
                     href="https://apps.apple.com/us/app/univest-empowering-wealth/id6443753518"
                     rel="noreferrer"
                     target="_blank"
                     className="transition hover:opacity-75"
                   >
-                    <Image
+                    <img
                       src={app_store}
                       width={114}
                       height={24}
                       className="w-36 object-contain"
                       alt="Google Play"
                     />
-                  </Link>
+                  </a>
                 </li>
 
                 <li>
-                  <Link
+                  <a
                     href="https://play.google.com/store/apps/details?id=com.univest.capp"
                     rel="noreferrer"
                     target="_blank"
                     className="transition hover:opacity-75"
                   >
-                    <Image
+                    <img
                       src={google_pay}
                       width={114}
                       height={24}
                       className="w-36 object-contain"
                       alt="Google Play"
                     />
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </nav>
