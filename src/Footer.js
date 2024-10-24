@@ -336,7 +336,7 @@ export function Header({ isDark = false }) {
       id="Hero"
       className=" overflow-hidden bg-gradient-to-b from-[#343434] to-[#343434]"
     >
-      <div className=" w-full flex flex-row pt-[176px] pb-[120px] max-w-screen-xl mx-auto justify-between  items-center gap-20">
+      <div className=" w-full flex flex-row py-10 max-w-screen-xl mx-auto justify-between  items-center gap-20">
         <div className="flex flex-col items-start gap-6">
           <div className=" top-0 flex items-center justify-center">
             <div
@@ -393,7 +393,7 @@ export function Header({ isDark = false }) {
           />
         </div>
       </div>
-      <div className="mt-8  lg:gap-16 [background:var(--Questionnaire-background-color,linear-gradient(127deg,#DDF6FF_-31.48%,#FFEAEF_95.46%))] px-4 py-2 lg:px-20 lg:py-4 flex whitespace-nowrap justify-center items-center">
+      <div className="[background:var(--Questionnaire-background-color,linear-gradient(127deg,#DDF6FF_-31.48%,#FFEAEF_95.46%))] px-4 py-2 lg:px-20 lg:py-4 flex whitespace-nowrap justify-center items-center">
         <div className="flex items-center gap-2 lg:gap-4">
           <p className="text-black text-sm font-medium leading-6  lg:text-[28px] lg:font-semibold lg:leading-[49px]">
             Trusted by
