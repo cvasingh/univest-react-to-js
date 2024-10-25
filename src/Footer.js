@@ -402,7 +402,7 @@ export function Header({ isDark = false }) {
           alt="demo"
         />
       </div>
-      <div className="fixed bottom-0 w-full px-4 py-3 duration-300 z-[101] shadow-[0px_0px_4px_rgba(255,255,255,0.6)] block md:hidden rounded-[12px_12px_0px_0px] proGradient">
+      <div className="fixed bottom-0 left-0 right-0 w-full px-4 py-3 duration-300 z-[101] shadow-[0px_0px_4px_rgba(255,255,255,0.6)] block md:hidden rounded-[12px_12px_0px_0px] proGradient">
         <a href="/user/log-in" className="w-full">
           <button
             id="ProDownloadButtonClick"
