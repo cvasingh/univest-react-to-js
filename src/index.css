@@ -32,3 +32,15 @@
     animation: buy-bounce 1s;
     animation-iteration-count: infinite;
 }
+.proGradient{
+    background: linear-gradient(0deg,#ff8415,#ffca3f);
+}
+
+.show-on-desktop{
+    display: none;
+}
+@media (min-width: 768px) {
+    .show-on-desktop {
+        display: block;
+    }
+}
