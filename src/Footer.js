@@ -363,7 +363,7 @@ export function Header({ isDark = false }) {
             </span>
           </div>
 
-          <a href="/user/log-in" className="w-full hidden md:block">
+          <a href="/user/log-in" className="w-full show-on-desktop">
             <button
               className={`font-Inter relative w-full text-black text-center buy-button pt-4 hover:animate-none`}
             >
