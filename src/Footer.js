@@ -25,8 +25,8 @@ export default function Footer({}) {
               100% Safe & Secure.
             </p>
             <p className="max-w-xs text-xs md:text-sm mt-4">
-              Univest encrypts all data and transactions to ensure a completely
-              secure experience for our members.
+              Univest promotes encrypted data and transactions to ensure a
+              completes secure experience for users.
             </p>
             <div className="max-w-[210px] flex items-center px-3 py-1 border border-white rounded-full mt-4">
               <svg
@@ -360,6 +360,10 @@ export function Header({ isDark = false }) {
             >
               India’s trusted
               <br className="show-on-desktop" /> stock market ideas
+              <br className="show-on-desktop" />
+              <span className="text-xs">
+                Powered by SEBI Reg. RA Uniresearch
+              </span>
             </span>
           </div>
 
